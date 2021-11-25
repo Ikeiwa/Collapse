@@ -4,16 +4,28 @@ Shader "Unlit/Pillar"
     {
         _Color("Color",Color) = (0,0,0,0)
         _AmbientLighting("Ambient Lighting",Range(0,1)) = 0.5
+    	
+        _CurveDirection("Curve Direction",Vector) = (0,0,0,0)
+        _CurveDistance("Curve Distance",Float) = 50
     }
     SubShader
     {
-        Tags { "RenderType"="Opaque" "Queue"="Geometry+1"}
+        Tags { "RenderType"="Opaque" "Queue"="Geometry"}
         LOD 100
     	
-        GrabPass{"_GrabTerrain"}
+    	CGINCLUDE
+        #include "./noiseSimplex.cginc"
+		#include "./worldCurve.cginc"
+
+        float nrand(float2 uv)
+        {
+            return frac(sin(dot(uv, float2(12.9898, 78.233))) * 43758.5453);
+        }
+        ENDCG
 
         Pass
         {
+            Tags {"LightMode" = "ForwardBase"}
         	Name "Main"
         	
         	Stencil{
@@ -23,50 +35,52 @@ Shader "Unlit/Pillar"
             }
         	
             CGPROGRAM
+            #pragma multi_compile_fwdbase nolightmap nodirlightmap nodynlightmap novertexlight
             #pragma vertex vert
             #pragma fragment frag
-
+            #include "AutoLight.cginc"
             #include "UnityCG.cginc"
-			#include "./noiseSimplex.cginc"
+			
 
             struct appdata
             {
-                float4 vertex : POSITION;
+                float4 pos : POSITION;
                 float2 uv : TEXCOORD0;
+                float3 normal : NORMAL;
                 fixed4 color : COLOR;
             };
 
             struct v2f
             {
-                float4 vertex : SV_POSITION;
+                float4 pos : SV_POSITION;
+                SHADOW_COORDS(1)
                 float2 uv : TEXCOORD0;
-                float3 worldPos : TEXCOORD1;
+                float3 normal : NORMAL;
                 fixed4 color : COLOR;
             };
-
-            float nrand(float2 uv)
-            {
-                return frac(sin(dot(uv, float2(12.9898, 78.233))) * 43758.5453);
-            }
 
             v2f vert (appdata v)
             {
                 v2f o;
 
+                curveWorld(v.pos);
+
                 float3 pivot = unity_ObjectToWorld._m03_m13_m23;
 
-                o.worldPos = mul(unity_ObjectToWorld, v.vertex);
-                float terrain = snoise(o.worldPos.xz * 0.1f) * 0.25f;
+                float3 worldPos = mul(unity_ObjectToWorld, v.pos);
+                float terrain = snoise(worldPos.xz * 0.1f) * 0.25f;
                 float height = nrand(pivot.xz);
 
-                float floating = sin(_Time.y + v.color.b*2 + height*5) * 0.15f * v.color.g;
+                float floating = sin(_Time.y + v.color.b*3.45f + height*5) * 0.15f * v.color.g;
 
-                v.vertex.y += ((height+ terrain) * v.color.r) + floating;
+                v.pos.y += ((height+ terrain) * v.color.r) + floating;
 
-                o.vertex = UnityObjectToClipPos(v.vertex);
+                o.pos = UnityObjectToClipPos(v.pos);
                 o.uv = v.uv;
+                o.normal = UnityObjectToWorldNormal(v.normal);
                 
                 o.color = v.color;
+                TRANSFER_SHADOW(o)
                 return o;
             }
 
@@ -75,17 +89,57 @@ Shader "Unlit/Pillar"
 
             fixed4 frag(v2f i) : SV_Target
             {
-                float3 posDY = ddy(i.worldPos);
-                float3 posDX = ddx(i.worldPos);
-
-                float3 normal = normalize(cross(posDY, posDX));
-
-                float NdotL = saturate(dot(normal, _WorldSpaceLightPos0));
+                fixed shadow = SHADOW_ATTENUATION(i);
+                float NdotL = saturate(dot(i.normal, _WorldSpaceLightPos0))* shadow;
                 NdotL = saturate(NdotL + _AmbientLighting);
 
                 return _Color * NdotL;
             }
             ENDCG
         }
+    	
+        Pass
+	    {
+	        Tags {"LightMode" = "ShadowCaster"}
+
+	        CGPROGRAM
+	        #pragma vertex vert
+	        #pragma fragment frag
+	        #pragma multi_compile_shadowcaster
+	        #include "UnityCG.cginc"
+
+
+	        struct v2f {
+	            V2F_SHADOW_CASTER;
+	        };
+
+	        v2f vert(appdata_full v)
+	        {
+	            v2f o;
+
+                curveWorld(v.vertex);
+
+                float3 pivot = unity_ObjectToWorld._m03_m13_m23;
+
+                float3 worldPos = mul(unity_ObjectToWorld, v.vertex);
+                float terrain = snoise(worldPos.xz * 0.1f) * 0.25f;
+                float height = nrand(pivot.xz);
+
+                float floating = sin(_Time.y + v.color.b * 3.45f + height * 5) * 0.15f * v.color.g;
+
+                v.vertex.y += ((height + terrain) * v.color.r) + floating;
+
+	            TRANSFER_SHADOW_CASTER_NORMALOFFSET(o)
+	            return o;
+	        }
+
+	        float4 frag(v2f i) : SV_Target
+	        {
+	            SHADOW_CASTER_FRAGMENT(i)
+	        }
+	        ENDCG
+	    }
     }
+	
+    
 }

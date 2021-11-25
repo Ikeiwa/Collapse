@@ -28,28 +28,29 @@ Shader "Unlit/OutlinedEntity"
             #pragma fragment frag
 
             #include "UnityCG.cginc"
+            #include "AutoLight.cginc"
 
             struct appdata
             {
-                float4 vertex : POSITION;
+                float4 pos : POSITION;
                 float2 uv : TEXCOORD0;
                 fixed4 color : COLOR;
             };
 
             struct v2f
             {
-                float4 vertex : SV_POSITION;
+                float4 pos : SV_POSITION;
                 float2 uv : TEXCOORD0;
-                float3 worldPos : TEXCOORD1;
+                float3 localPos : TEXCOORD2;
                 fixed4 color : COLOR;
             };
 
             v2f vert (appdata v)
             {
                 v2f o;
-                o.vertex = UnityObjectToClipPos(v.vertex);
+                o.pos = UnityObjectToClipPos(v.pos);
                 o.uv = v.uv;
-                o.worldPos = mul(unity_ObjectToWorld, v.vertex);
+                o.localPos = v.pos.xyz;
                 o.color = v.color;
                 return o;
             }
@@ -59,10 +60,11 @@ Shader "Unlit/OutlinedEntity"
 
             fixed4 frag(v2f i) : SV_Target
             {
-                float3 posDY = ddy(i.worldPos);
-                float3 posDX = ddx(i.worldPos);
+                float3 posDY = ddy(i.localPos);
+                float3 posDX = ddx(i.localPos);
 
                 float3 normal = normalize(cross(posDY, posDX));
+                normal = UnityObjectToWorldNormal(normal);
 
                 float NdotL = saturate(dot(normal, _WorldSpaceLightPos0));
                 NdotL = saturate(NdotL + _AmbientLighting);
@@ -126,5 +128,34 @@ Shader "Unlit/OutlinedEntity"
             }
             ENDCG
         }
+    	
+        Pass
+        {
+            Tags {"LightMode" = "ShadowCaster"}
+
+            CGPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
+            #pragma multi_compile_shadowcaster
+            #include "UnityCG.cginc"
+
+            struct v2f {
+                V2F_SHADOW_CASTER;
+            };
+
+            v2f vert(appdata_base v)
+            {
+                v2f o;
+                TRANSFER_SHADOW_CASTER_NORMALOFFSET(o)
+                return o;
+            }
+
+            float4 frag(v2f i) : SV_Target
+            {
+                SHADOW_CASTER_FRAGMENT(i)
+            }
+            ENDCG
+        }
+
     }
 }
