@@ -8,7 +8,7 @@ Shader "Unlit/OutlinedEntity"
     }
     SubShader
     {
-        Tags { "RenderType"="Opaque" "Queue"="Geometry+1"}
+        Tags { "RenderType"="Opaque" "Queue"="Geometry+1" "IgnoreProjector" = "true"}
         LOD 100
     	
         GrabPass{"_GrabTerrain"}

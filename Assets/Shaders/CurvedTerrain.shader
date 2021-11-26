@@ -59,9 +59,9 @@ Shader "Unlit/Curved Terrain"
 
                 curveWorld(v.pos);
 
-                float3 pivot = unity_ObjectToWorld._m03_m13_m23;
+                //float3 pivot = unity_ObjectToWorld._m03_m13_m23;
 
-                float3 worldPos = mul(unity_ObjectToWorld, v.pos);
+                //float3 worldPos = mul(unity_ObjectToWorld, v.pos);
 
                 o.pos = UnityObjectToClipPos(v.pos);
                 o.uv = v.uv;
@@ -106,10 +106,6 @@ Shader "Unlit/Curved Terrain"
 	            v2f o;
 
                 curveWorld(v.vertex);
-
-                float3 pivot = unity_ObjectToWorld._m03_m13_m23;
-
-                float3 worldPos = mul(unity_ObjectToWorld, v.vertex);
 
 	            TRANSFER_SHADOW_CASTER_NORMALOFFSET(o)
 	            return o;

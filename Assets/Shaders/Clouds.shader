@@ -8,7 +8,7 @@ Shader "Unlit/Clouds"
     }
     SubShader
     {
-        Tags { "RenderType"="Opaque" }
+        Tags { "RenderType"="Opaque" "IgnoreProjector" = "true"}
         LOD 100
 
         Pass
@@ -16,6 +16,7 @@ Shader "Unlit/Clouds"
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
+
 
             #include "UnityCG.cginc"
 			#include "./noiseSimplex.cginc"
