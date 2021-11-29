@@ -410,6 +410,7 @@ GameObject:
   - component: {fileID: 320331395}
   - component: {fileID: 320331394}
   - component: {fileID: 320331397}
+  - component: {fileID: 320331398}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -476,7 +477,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 320331393}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 4.18, z: -10.58}
+  m_LocalPosition: {x: 0, y: 4.5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 512456100}
@@ -543,6 +544,21 @@ MonoBehaviour:
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
   m_AfterStackBundles: []
+--- !u!114 &320331398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 320331393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85de2be4690157a409696b9c9c6ffa03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 846517260}
+  height: 4.5
+  depth: 10
 --- !u!1 &470926595
 GameObject:
   m_ObjectHideFlags: 0
@@ -570,7 +586,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 470926595}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 4.18, z: -10.58}
+  m_LocalPosition: {x: 0, y: 4.5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 885783943}
@@ -5603,6 +5619,24 @@ CapsuleCollider:
   m_Height: 20
   m_Direction: 1
   m_Center: {x: 0.00000834465, y: 5.81, z: 0.49999952}
+--- !u!114 &846517260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 846517257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a1d94c14eb6ae74584fa0a7b276f4d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 2000
+  accel: 1000
+  maxDistance: 12
+  friction: 19
+  dashChargeTime: 1
+  dashDistance: 8
 --- !u!1 &885783942
 GameObject:
   m_ObjectHideFlags: 0
