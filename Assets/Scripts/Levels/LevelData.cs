@@ -5,10 +5,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Level", menuName = "Collapse/Level", order = 1)]
 public class LevelData : ScriptableObject
 {
-    public string name = "Level";
+    public string displayName = "Level";
     public int distance = 1000;
     public float duration = 120;
     public AudioClip music;
+    public Color skyColor;
 
     public GameObject startTile;
     public GameObject[] tiles;
