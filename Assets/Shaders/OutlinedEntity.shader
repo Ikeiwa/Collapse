@@ -124,7 +124,7 @@ Shader "Unlit/OutlinedEntity"
                 float3 background = tex2Dproj(_GrabTerrain,i.grabPos);
                 float value = round(1-saturate((background.r + background.g + background.b) / 3));
 
-                return 0;
+                return value;
             }
             ENDCG
         }
