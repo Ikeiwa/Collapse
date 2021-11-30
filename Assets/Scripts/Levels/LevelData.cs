@@ -5,15 +5,18 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Level", menuName = "Collapse/Level", order = 1)]
 public class LevelData : ScriptableObject
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public string displayName = "Level";
+    public int distance = 1000;
+    public float duration = 120;
+    public AudioClip music;
+    public Color skyColor;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public GameObject startTile;
+    public GameObject[] tiles;
+
+    public ObstacleBase[] obstacles;
+    public float[] obstaclesChance;
+
+    //public EnemyBase[] enemies;
+    public float[] enemyChance;
 }
