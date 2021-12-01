@@ -37,6 +37,8 @@ Shader "Unlit/Clouds"
             float2 _Tiling;
             float _FadeDist;
 
+            uniform sampler2D _MusicSpectrumTex;
+
             v2f vert (appdata v)
             {
                 v2f o;
@@ -60,6 +62,8 @@ Shader "Unlit/Clouds"
                 float triMask = tries.b;
 
                 float noise = saturate(snoise(triUV*0.1) + snoise(triUV * 0.1 + float2(0, _Time.x)));
+
+                noise *= 1+tex2D(_MusicSpectrumTex, float2(0.1, 0))/50.0f;
 
                 float maskedTri = step(triMask, noise* fade);
 

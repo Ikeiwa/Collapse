@@ -439,6 +439,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &98189573 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 390224901393157560, guid: cc944d34569e125469cff0488ecfe96f, type: 3}
+  m_PrefabInstance: {fileID: 846517255}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &98189575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 98189573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae5568460910e3d4eb59dd8b5fa8cd78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trailEnd: {fileID: 544678565}
 --- !u!1001 &146359427
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6096,6 +6114,11 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!4 &544678565 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2197998777180318827, guid: cc944d34569e125469cff0488ecfe96f, type: 3}
+  m_PrefabInstance: {fileID: 846517255}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &601307942 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2a3a57f91065e6c4d982954a947fde2d, type: 3}
@@ -6371,6 +6394,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 6209297712205379352, guid: cc944d34569e125469cff0488ecfe96f, type: 3}
+      propertyPath: m_AABB.m_Extent.y
+      value: 1.73
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc944d34569e125469cff0488ecfe96f, type: 3}
 --- !u!4 &846517256 stripped
@@ -6501,7 +6528,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2a3a57f91065e6c4d982954a947fde2d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -119
+      value: -116.6
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2a3a57f91065e6c4d982954a947fde2d, type: 3}
       propertyPath: m_LocalPosition.y
@@ -7247,6 +7274,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2076759214}
   - component: {fileID: 2076759213}
+  - component: {fileID: 2076759215}
   m_Layer: 0
   m_Name: MusicSource
   m_TagString: Untagged
@@ -7364,6 +7392,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2076759215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2076759212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efdf916b31ecba24ba8335dc071b8b5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  settings:
+    pillar:
+      amount: 64
+      sensitivity: 40
+      speed: 5
+    spectrum:
+      FffWindowType: 5
+      sampleRate: 1024
 --- !u!4 &2080683613 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2c237eb0554c0b04595c040d9b10c0a4, type: 3}

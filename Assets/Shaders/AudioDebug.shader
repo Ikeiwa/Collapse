@@ -1,14 +1,12 @@
-Shader "Unlit/VertexEmit"
+Shader "Unlit/AudioDebug"
 {
     Properties
     {
-        _EmitPower("Emit Power", Float) = 5
     }
     SubShader
     {
         Tags { "RenderType"="Opaque" }
         LOD 100
-    	Cull Off
 
         Pass
         {
@@ -21,28 +19,28 @@ Shader "Unlit/VertexEmit"
             struct appdata
             {
                 float4 vertex : POSITION;
-                float4 color : COLOR;
+                float2 uv : TEXCOORD0;
             };
 
             struct v2f
             {
+                float2 uv : TEXCOORD0;
                 float4 vertex : SV_POSITION;
-                float4 color : COLOR;
             };
+
+            uniform sampler2D _MusicSpectrumTex;
 
             v2f vert (appdata v)
             {
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
-                o.color = v.color;
+                o.uv = v.uv;
                 return o;
             }
 
-            float _EmitPower;
-
             fixed4 frag (v2f i) : SV_Target
             {
-                return i.color * _EmitPower;
+                return tex2D(_MusicSpectrumTex, i.uv);
             }
             ENDCG
         }
