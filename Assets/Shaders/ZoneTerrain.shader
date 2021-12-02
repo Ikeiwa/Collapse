@@ -1,11 +1,12 @@
-Shader "Unlit/Plain Terrain"
+Shader "Unlit/Zone Terrain"
 {
     Properties
     {
         _Color("Color",Color) = (0,0,0,0)
         _AmbientLighting("Ambient Lighting",Range(0,1)) = 0.5
-	    
-
+        _MainTex("Tris Texture", 2D) = "white" {}
+        _Tiling("Tiling",Vector) = (1,1,0,0)
+    	
         _CurveDirection("Curve Direction",Vector) = (0,0,0,0)
         _CurveDistance("Curve Distance",Float) = 50
     }
@@ -54,6 +55,9 @@ Shader "Unlit/Plain Terrain"
                 fixed4 color : COLOR;
             };
 
+            sampler2D _MainTex;
+            float2 _Tiling;
+
             v2f vert (appdata v)
             {
                 v2f o;
@@ -67,7 +71,7 @@ Shader "Unlit/Plain Terrain"
                 //float3 pivot = unity_ObjectToWorld._m03_m13_m23;
 
                 o.pos = UnityObjectToClipPos(v.pos);
-                o.uv = v.uv;
+                o.uv = mul(unity_ObjectToWorld, v.pos).xz * _Tiling;
                 o.normal = UnityObjectToWorldNormal(v.normal);
                 
                 o.color = v.color;
@@ -80,11 +84,24 @@ Shader "Unlit/Plain Terrain"
 
             fixed4 frag(v2f i) : SV_Target
             {
+                float2 uvFloor = floor(i.uv);
+
+                float3 tries = tex2D(_MainTex, i.uv).rgb;
+                float2 triUV = uvFloor + tries.xy;
+
+                float triMask = tries.b;
+
+                float noise = smoothstep(0.4,0.6,1-saturate(snoise(float3(triUV * 0.02,_Time.x))) - i.color.r);
+                float maskedTri = step(triMask, noise);
+
+                clip(maskedTri - 0.01f);
+
                 fixed shadow = SHADOW_ATTENUATION(i);
                 float NdotL = saturate(dot(i.normal, _WorldSpaceLightPos0)) * shadow;
                 NdotL = saturate(NdotL + _AmbientLighting);
 
                 float4 vertColor = lerp(i.color, 1, i.color.a);
+                vertColor = lerp(vertColor, float4(0, 3, 3, 1), step(noise, 0.94));
 
                 return _Color * NdotL * vertColor;
             }
