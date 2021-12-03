@@ -6,9 +6,6 @@ Shader "Unlit/Zone Terrain"
         _AmbientLighting("Ambient Lighting",Range(0,1)) = 0.5
         _MainTex("Tris Texture", 2D) = "white" {}
         _Tiling("Tiling",Vector) = (1,1,0,0)
-    	
-        _CurveDirection("Curve Direction",Vector) = (0,0,0,0)
-        _CurveDistance("Curve Distance",Float) = 50
     }
     SubShader
     {

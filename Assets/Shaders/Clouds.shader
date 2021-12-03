@@ -9,8 +9,10 @@ Shader "Unlit/Clouds"
     }
     SubShader
     {
-        Tags { "RenderType"="Opaque" "IgnoreProjector" = "true"}
+        Tags { "Queue" = "Background+1" "RenderType" = "Background" "IgnoreProjector" = "true"}
         LOD 100
+    	Offset 1, 1000
+    	
 
         Pass
         {
@@ -31,6 +33,7 @@ Shader "Unlit/Clouds"
             {
                 float2 uv : TEXCOORD0;
                 float4 vertex : SV_POSITION;
+                float distance : TEXCOORD1;
             };
 
             sampler2D _MainTex;
@@ -43,7 +46,8 @@ Shader "Unlit/Clouds"
             {
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
-                o.uv = mul(unity_ObjectToWorld, v.vertex).xz* _Tiling;
+                o.uv = ((v.vertex*10000) + unity_ObjectToWorld._m03_m13_m23).xy* _Tiling;
+                o.distance = mul(unity_ObjectToWorld, v.vertex).z - _WorldSpaceCameraPos.z;
                 return o;
             }
 
@@ -57,7 +61,7 @@ Shader "Unlit/Clouds"
                 float3 tries = tex2D(_MainTex, i.uv).rgb;
                 float2 triUV = uvFloor + tries.xy;
 
-                float fade = saturate(1-pow(saturate(triUV.y / _FadeDist),4));
+                float fade = saturate(1-pow(saturate(i.distance / _FadeDist),4));
 
                 float triMask = tries.b;
 

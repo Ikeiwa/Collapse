@@ -6,9 +6,10 @@ uniform float _CurveDistance = 50;
 
 void curveWorld(inout float4 vertex)
 {
-	float4 vPos = mul(UNITY_MATRIX_MV, vertex);
-	float zOff = vPos.z/_CurveDistance;
-	vertex += _CurveDirection*zOff*zOff;
+	float4 wPos = mul(unity_ObjectToWorld, vertex);
+	float zOff = (wPos.z-_WorldSpaceCameraPos.z)/_CurveDistance;
+	wPos += _CurveDirection*zOff*zOff;
+	vertex = mul(unity_WorldToObject, wPos);
 }
 
 #endif

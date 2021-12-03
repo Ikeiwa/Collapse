@@ -4,9 +4,6 @@ Shader "Unlit/Pillar"
     {
         _Color("Color",Color) = (0,0,0,0)
         _AmbientLighting("Ambient Lighting",Range(0,1)) = 0.5
-    	
-        _CurveDirection("Curve Direction",Vector) = (0,0,0,0)
-        _CurveDistance("Curve Distance",Float) = 50
     }
     SubShader
     {

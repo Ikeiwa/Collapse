@@ -17,6 +17,7 @@ Shader "Unlit/VertexEmit"
             #pragma fragment frag
 
             #include "UnityCG.cginc"
+			#include "worldCurve.cginc"
 
             struct appdata
             {
@@ -33,6 +34,7 @@ Shader "Unlit/VertexEmit"
             v2f vert (appdata v)
             {
                 v2f o;
+                curveWorld(v.vertex);
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 o.color = v.color;
                 return o;
