@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     public float dashDistance = 2;
 
     public float velocity { get; private set; }
+    public float position { get; private set; }
 
     private bool canDash = true;
     private float dashTimer = 0;
@@ -38,6 +39,9 @@ public class PlayerController : MonoBehaviour
         }
 
         transform.localEulerAngles = new Vector3(0, 0, -velocity*0.5f);
+
+        float alpha = (Time.time - Time.fixedTime) / Time.fixedDeltaTime;
+        transform.position = Vector3.Lerp(transform.position, new Vector3(position, 0, 0), alpha);
     }
 
     private void FixedUpdate()
@@ -58,8 +62,9 @@ public class PlayerController : MonoBehaviour
             canDash = true;
         }
 
-        float newX = Mathf.Clamp(transform.localPosition.x + velocity * Time.fixedDeltaTime + dashOffset, -maxDistance, maxDistance);
-        transform.localPosition = new Vector3(newX, 0, 0);
+        float newX = Mathf.Clamp(position + velocity * Time.fixedDeltaTime + dashOffset, -maxDistance, maxDistance);
+        position = newX;
+        
 
         if (dashTimer > 0)
             dashTimer -= Time.fixedDeltaTime;

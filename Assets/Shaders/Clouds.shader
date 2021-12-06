@@ -11,7 +11,7 @@ Shader "Unlit/Clouds"
     {
         Tags { "Queue" = "Background+1" "RenderType" = "Background" "IgnoreProjector" = "true"}
         LOD 100
-    	Offset 1, 1000
+    	Offset 1, 0
     	
 
         Pass

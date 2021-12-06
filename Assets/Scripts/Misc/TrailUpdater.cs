@@ -5,6 +5,7 @@ using UnityEngine;
 public class TrailUpdater : MonoBehaviour
 {
     public Transform trailEnd;
+    public float trailSpeed = 10;
 
     private Vector3 previousPos;
     private Vector3 target;
@@ -21,7 +22,7 @@ public class TrailUpdater : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        target = Vector3.Lerp(target, transform.position + baseOffset, Time.deltaTime * 10);
+        target = Vector3.Lerp(target, transform.position + baseOffset, Time.deltaTime * trailSpeed);
         trailEnd.position = target;
 
         previousPos = transform.position;

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a98232f327a11d94f988972a3fb3c3a1, type: 3}
+  m_Name: Level_Tunnel
+  m_EditorClassIdentifier: 
+  displayName: Tunnel
+  distance: 600
+  duration: 120
+  music: {fileID: 8300000, guid: 6b0fc6ddcbef5ce429586287729f609b, type: 3}
+  skyColor: {r: 0, g: 0, b: 0, a: 0}
+  startTile: {fileID: 0}
+  tiles:
+  - {fileID: 919132149155446097, guid: 587ac316e7c09344e9dc5727e68fcebd, type: 3}
+  - {fileID: 919132149155446097, guid: 061e8db019a6e5a4bbe7f2d5617e0f22, type: 3}
+  obstacles: []
+  obstaclesChance: []
+  enemyChance: []

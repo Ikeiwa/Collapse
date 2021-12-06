@@ -10,13 +10,19 @@ public class LevelData : ScriptableObject
     public float duration = 120;
     public AudioClip music;
     public Color skyColor;
+    public Vector3 maxCurve;
 
-    public GameObject startTile;
-    public GameObject[] tiles;
+    public LevelTile startTile;
+    public LevelTile[] tiles;
 
     public ObstacleBase[] obstacles;
     public float[] obstaclesChance;
 
     //public EnemyBase[] enemies;
     public float[] enemyChance;
+
+    public Vector3 GetRandomCurve()
+    {
+        return new Vector3(Random.Range(-maxCurve.x, maxCurve.x), Random.Range(-maxCurve.y, maxCurve.y), 0);
+    }
 }
