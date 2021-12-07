@@ -23,6 +23,6 @@ Material:
     - _GradientOffset: 0.19
     - _GradientPower: 0.73
     m_Colors:
-    - _ColorHorizon: {r: 0.5788209, g: 0.7327839, b: 0.4683306, a: 0}
+    - _ColorHorizon: {r: 0.34827453, g: 0.83, b: 0.83, a: 0}
     - _ColorZenith: {r: 0.5058824, g: 0.9254902, b: 0.9254902, a: 1}
   m_BuildTextureStacks: []
