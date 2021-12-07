@@ -23,5 +23,5 @@ Material:
     - _AmbientLighting: 0.5
     - _OutlineThickness: 0.17
     m_Colors:
-    - _Color: {r: 0, g: 0.7105088, b: 1, a: 0}
+    - _Color: {r: 1, g: 1, b: 1, a: 0}
   m_BuildTextureStacks: []

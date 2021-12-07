@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 94d5ac1b6f210a84ca5cbbd019ad8816
+guid: feb888374d76c0f41b834739f905a611
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
@@ -7,7 +7,12 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Pillar
+      name: Emit
+    second: {fileID: 2100000, guid: 876ec4baa0a839c4b92cf3555ee3d620, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Road
     second: {fileID: 2100000, guid: 70074a2d5e9c12540a30bea223c22ba0, type: 2}
   materials:
     materialImportMode: 2

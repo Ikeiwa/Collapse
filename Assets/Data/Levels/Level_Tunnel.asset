@@ -17,10 +17,11 @@ MonoBehaviour:
   duration: 120
   music: {fileID: 8300000, guid: 6b0fc6ddcbef5ce429586287729f609b, type: 3}
   skyColor: {r: 0, g: 0, b: 0, a: 0}
-  startTile: {fileID: 0}
+  maxCurve: {x: 2, y: 0, z: 0}
+  startTile: {fileID: 5600934852808641965, guid: a8f322be979671d4a80fd422246c8f23, type: 3}
   tiles:
-  - {fileID: 919132149155446097, guid: 587ac316e7c09344e9dc5727e68fcebd, type: 3}
-  - {fileID: 919132149155446097, guid: 061e8db019a6e5a4bbe7f2d5617e0f22, type: 3}
+  - {fileID: 76164152436635042, guid: 505702d59644aa34baef47f5a4a5c20a, type: 3}
+  - {fileID: 8134839989832385963, guid: d8b385f9724ca6748847f1824a96e675, type: 3}
   obstacles: []
   obstaclesChance: []
   enemyChance: []

@@ -50,6 +50,7 @@ Shader "Unlit/Sky"
 
             fixed4 frag(v2f i) : SV_Target
             {
+                return _ColorHorizon;
                 float gradient = pow(saturate(dot(i.viewDir,float3(0,-1,0))+_GradientOffset),_GradientPower);
 
                 return lerp(_ColorHorizon,_ColorZenith, gradient);

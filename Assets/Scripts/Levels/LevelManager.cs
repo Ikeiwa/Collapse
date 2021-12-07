@@ -6,27 +6,43 @@ using Random = UnityEngine.Random;
 
 public class LevelManager : MonoBehaviour
 {
+    public LevelManager instance { get; private set; }
+
     public LevelData[] levels;
     public Transform tilesRoot;
     public Transform roadCamRoot;
     public AudioSource musicPlayer;
+    public LevelIntroText levelIntroText;
     public float speed { get; private set; }
-    public int currentLevel { get; private set; }
+    public int currentLevelIndex { get; private set; }
+    public LevelData currentLevel { get; private set; }
+    [Space]
+    public PlayerController player;
+    public CameraController mainCamera;
 
     private bool gameStarted = false;
 
     private LevelCurve levelCurve;
     private LevelTile nextLevelStart;
     private LevelTile lastTile;
-    private float curveChangeTimer = 0;
+    private float curveChangeTimer = 10;
+
+    private static readonly int ColorHorizon = Shader.PropertyToID("_ColorHorizon");
+    private static readonly float transitionDuration = 5;
 
     private void Awake()
     {
+        if(instance != null)
+            Destroy(gameObject);
+
+        instance = this;
         levelCurve = GetComponent<LevelCurve>();
     }
 
     void Start()
     {
+        RenderSettings.fogColor = levels[0].skyColor;
+        RenderSettings.skybox.SetColor(ColorHorizon, levels[0].skyColor);
         StartGame();
     }
 
@@ -44,7 +60,7 @@ public class LevelManager : MonoBehaviour
             if (curveChangeTimer <= 0)
             {
                 curveChangeTimer = Random.Range(5, 15);
-                levelCurve.curveTarget = levels[currentLevel].GetRandomCurve();
+                levelCurve.curveTarget = currentLevel.GetRandomCurve();
             }
         }
         
@@ -54,22 +70,71 @@ public class LevelManager : MonoBehaviour
     {
         gameStarted = true;
         speed = 50;
-        LoadLevel(0);
+        LoadLevel();
     }
 
     public void LoadLevel(int level = 0)
     {
-        currentLevel = 0;
-        musicPlayer.clip = levels[currentLevel].music;
-        musicPlayer.Play();
+        currentLevelIndex = level;
+        currentLevel = levels[currentLevelIndex];
+        curveChangeTimer = transitionDuration+5;
+        levelCurve.curveTarget = Vector3.zero;
+        musicPlayer.clip = currentLevel.music;
 
-        RenderSettings.fogColor = levels[currentLevel].skyColor;
-        RenderSettings.skybox.SetColor("_ColorHorizon",levels[currentLevel].skyColor);
+        SpawnTile(true);
+
+        StartCoroutine(LevelTimer());
     }
 
-    public void SpawnTile()
+    IEnumerator LevelTimer()
     {
-        LevelTile tile = Instantiate(levels[currentLevel].tiles[Random.Range(0, levels[currentLevel].tiles.Length)],tilesRoot);
+        yield return new WaitForSeconds(3);
+        levelIntroText.DisplayText(currentLevel.displayName, currentLevel.distance);
+
+        Color baseColor = RenderSettings.fogColor;
+
+        float timer = 0;
+        while (timer < 2)
+        {
+            Color newColor = Color.Lerp(baseColor, currentLevel.skyColor, timer / 2.0f);
+            RenderSettings.fogColor = newColor;
+            RenderSettings.skybox.SetColor(ColorHorizon, newColor);
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        RenderSettings.fogColor = currentLevel.skyColor;
+        RenderSettings.skybox.SetColor(ColorHorizon, currentLevel.skyColor);
+
+        yield return new WaitForSeconds(transitionDuration);
+        musicPlayer.volume = 1;
+        musicPlayer.Play();
+
+        Debug.Log("Level " + (currentLevelIndex+1) +" Started !");
+
+        yield return new WaitForSeconds(currentLevel.duration);
+
+        timer = 0;
+        while (timer < 2)
+        {
+            musicPlayer.volume = 1-(timer / 2.0f);
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        musicPlayer.Stop();
+
+
+        levelCurve.curveTarget = Vector3.zero;
+        curveChangeTimer = 100;
+        yield return new WaitForSeconds(5);
+
+        LoadLevel(currentLevelIndex+1);
+    }
+
+    public void SpawnTile(bool start = false)
+    {
+        LevelTile tilePrefab = start ? currentLevel.startTile : currentLevel.tiles[Random.Range(0, currentLevel.tiles.Length)];
+
+        LevelTile tile = Instantiate(tilePrefab, tilesRoot);
         tile.levelManager = this;
         if(lastTile)
             tile.transform.localPosition = lastTile.transform.localPosition + new Vector3(0, 0, 500);

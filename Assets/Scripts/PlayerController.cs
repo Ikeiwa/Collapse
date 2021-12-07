@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public GameObject dashTrail;
+
     public float moveSpeed = 5;
     public float accel = 10;
     public float maxDistance = 5;
@@ -56,6 +58,7 @@ public class PlayerController : MonoBehaviour
             canDash = false;
             dashTimer = dashChargeTime;
             dashOffset = Mathf.Sign(dash) * dashDistance;
+            dashTrail.SetActive(true);
         }
         else if (dashTimer <= 0 && !canDash)
         {

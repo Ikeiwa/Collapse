@@ -1,4 +1,4 @@
-Shader "Unlit/VertexEmit"
+Shader "Unlit/VertexEmit Blend"
 {
     Properties
     {
@@ -6,12 +6,25 @@ Shader "Unlit/VertexEmit"
     }
     SubShader
     {
-        Tags { "RenderType"="Opaque" }
+        Tags {"Queue" = "Transparent" "IgnoreProjector" = "True" "RenderType" = "Transparent"}
         LOD 100
-    	Cull Off
+    	
+        Pass {
+	        ColorMask 0
+	    }
 
         Pass
         {
+            ZWrite Off
+			Blend SrcAlpha OneMinusSrcAlpha
+        	ColorMask RGB
+        	
+            Stencil{
+                Ref 3
+                Comp NotEqual
+                Pass Keep
+            }
+        	
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
@@ -52,6 +65,16 @@ Shader "Unlit/VertexEmit"
 				return col;
             }
             ENDCG
+        }
+    	
+        Pass {
+            ColorMask 0
+        	
+            Stencil{
+                Ref 3
+                Comp Always
+                Pass Replace
+            }
         }
     }
 }

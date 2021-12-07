@@ -35,6 +35,7 @@ Shader "Unlit/Pillar"
             #pragma multi_compile_fwdbase nolightmap nodirlightmap nodynlightmap novertexlight
             #pragma vertex vert
             #pragma fragment frag
+            #pragma multi_compile_fog
             #include "AutoLight.cginc"
             #include "UnityCG.cginc"
 			
@@ -54,6 +55,7 @@ Shader "Unlit/Pillar"
                 float2 uv : TEXCOORD0;
                 float3 normal : NORMAL;
                 fixed4 color : COLOR;
+                UNITY_FOG_COORDS(2)
             };
 
             v2f vert (appdata v)
@@ -75,7 +77,7 @@ Shader "Unlit/Pillar"
                 o.pos = UnityObjectToClipPos(v.pos);
                 o.uv = v.uv;
                 o.normal = UnityObjectToWorldNormal(v.normal);
-                
+                UNITY_TRANSFER_FOG(o, o.pos);
                 o.color = v.color;
                 TRANSFER_SHADOW(o)
                 return o;
@@ -90,7 +92,9 @@ Shader "Unlit/Pillar"
                 float NdotL = saturate(dot(i.normal, _WorldSpaceLightPos0))* shadow;
                 NdotL = saturate(NdotL + _AmbientLighting);
 
-                return _Color * NdotL;
+                float4 col = _Color * NdotL;
+                UNITY_APPLY_FOG(i.fogCoord, col);
+                return col;
             }
             ENDCG
         }

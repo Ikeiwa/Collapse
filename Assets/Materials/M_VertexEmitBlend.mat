@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_Clouds
-  m_Shader: {fileID: 4800000, guid: ae965563246cb174c92fdbf96f30e225, type: 3}
+  m_Name: M_VertexEmitBlend
+  m_Shader: {fileID: 4800000, guid: 216ba99ed9367e441bdf622d38196acf, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -18,15 +18,8 @@ Material:
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 2800000, guid: cd1516a430219c24a89ab380466f5cad, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
+    m_TexEnvs: []
     m_Floats:
-    - _FadeDist: 200
-    - _Tiling: 0.04
-    m_Colors:
-    - _CloudColor: {r: 1, g: 1, b: 1, a: 0}
-    - _Tiling: {r: 0.01875, g: 0.0215625, b: 0, a: 0}
+    - _EmitPower: 0.58
+    m_Colors: []
   m_BuildTextureStacks: []

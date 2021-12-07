@@ -29,6 +29,7 @@ Shader "Unlit/Curved Terrain"
             #pragma multi_compile_fwdbase nolightmap nodirlightmap nodynlightmap novertexlight
             #pragma vertex vert
             #pragma fragment frag
+            #pragma multi_compile_fog
             #include "AutoLight.cginc"
             #include "UnityCG.cginc"
 			
@@ -48,6 +49,7 @@ Shader "Unlit/Curved Terrain"
                 float2 uv : TEXCOORD0;
                 float3 normal : NORMAL;
                 fixed4 color : COLOR;
+                UNITY_FOG_COORDS(2)
             };
 
             v2f vert (appdata v)
@@ -66,6 +68,7 @@ Shader "Unlit/Curved Terrain"
                 
                 o.color = v.color;
                 TRANSFER_SHADOW(o)
+            	UNITY_TRANSFER_FOG(o, o.pos);
                 return o;
             }
 
@@ -78,7 +81,9 @@ Shader "Unlit/Curved Terrain"
                 float NdotL = saturate(dot(i.normal, _WorldSpaceLightPos0)) * shadow;
                 NdotL = saturate(NdotL + _AmbientLighting);
 
-                return _Color * NdotL + i.color;
+                float4 col = _Color * NdotL + i.color;
+                UNITY_APPLY_FOG(i.fogCoord, col);
+                return col;
             }
             ENDCG
         }

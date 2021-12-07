@@ -28,7 +28,7 @@ public class LevelCurve : MonoBehaviour
         Shader.SetGlobalVector(CurveDirection, curveDirection);
         Shader.SetGlobalFloat(CurveDistance,curveDistance);
 
-        clouds.Rotate(Vector3.up,-curveDirection.x*Time.deltaTime*15, Space.World);
+        clouds.Rotate(Vector3.up,-curveDirection.x*Time.deltaTime*10, Space.World);
     }
 
     /*public void SetCurve(Vector3 targetCurve, float duration)

@@ -7,6 +7,16 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: M_body
+    second: {fileID: 2100000, guid: 684eaf42a3da9944aa7d348e9bd2d04c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_thruster
+    second: {fileID: 2100000, guid: 876ec4baa0a839c4b92cf3555ee3d620, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Ship
     second: {fileID: 2100000, guid: 684eaf42a3da9944aa7d348e9bd2d04c, type: 2}
   - first:

@@ -31,6 +31,7 @@ Shader "Unlit/Zone Terrain"
             #pragma multi_compile_fwdbase nolightmap nodirlightmap nodynlightmap novertexlight
             #pragma vertex vert
             #pragma fragment frag
+            #pragma multi_compile_fog
             #include "AutoLight.cginc"
             #include "UnityCG.cginc"
 			
@@ -50,6 +51,7 @@ Shader "Unlit/Zone Terrain"
                 float2 uv : TEXCOORD0;
                 float3 normal : NORMAL;
                 fixed4 color : COLOR;
+                UNITY_FOG_COORDS(2)
             };
 
             sampler2D _MainTex;
@@ -70,7 +72,7 @@ Shader "Unlit/Zone Terrain"
                 o.pos = UnityObjectToClipPos(v.pos);
                 o.uv = mul(unity_ObjectToWorld, v.pos).xz * _Tiling;
                 o.normal = UnityObjectToWorldNormal(v.normal);
-                
+                UNITY_TRANSFER_FOG(o, o.pos);
                 o.color = v.color;
                 TRANSFER_SHADOW(o)
                 return o;
@@ -100,7 +102,9 @@ Shader "Unlit/Zone Terrain"
                 float4 vertColor = lerp(i.color, 1, i.color.a);
                 vertColor = lerp(vertColor, float4(0, 3, 3, 1), step(noise, 0.94));
 
-                return _Color * NdotL * vertColor;
+                float4 col = _Color * NdotL * vertColor;
+            	UNITY_APPLY_FOG(i.fogCoord, col);
+                return col;
             }
             ENDCG
         }
