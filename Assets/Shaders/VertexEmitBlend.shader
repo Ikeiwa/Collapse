@@ -8,23 +8,11 @@ Shader "Unlit/VertexEmit Blend"
     {
         Tags {"Queue" = "Transparent" "IgnoreProjector" = "True" "RenderType" = "Transparent"}
         LOD 100
-    	
-        Pass {
-	        ColorMask 0
-	    }
+        ZWrite Off
+        Blend SrcAlpha OneMinusSrcAlpha
 
         Pass
         {
-            ZWrite Off
-			Blend SrcAlpha OneMinusSrcAlpha
-        	ColorMask RGB
-        	
-            Stencil{
-                Ref 3
-                Comp NotEqual
-                Pass Keep
-            }
-        	
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
@@ -65,16 +53,6 @@ Shader "Unlit/VertexEmit Blend"
 				return col;
             }
             ENDCG
-        }
-    	
-        Pass {
-            ColorMask 0
-        	
-            Stencil{
-                Ref 3
-                Comp Always
-                Pass Replace
-            }
         }
     }
 }

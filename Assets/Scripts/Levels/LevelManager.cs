@@ -122,6 +122,7 @@ public class LevelManager : MonoBehaviour
         }
         musicPlayer.Stop();
 
+        
 
         levelCurve.curveTarget = Vector3.zero;
         curveChangeTimer = 100;

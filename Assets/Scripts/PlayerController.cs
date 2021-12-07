@@ -23,10 +23,12 @@ public class PlayerController : MonoBehaviour
     private float move = 0;
     private float dash = 0;
 
+    private InterpolatedTransform interpolatedTransform;
+
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        
+        interpolatedTransform = GetComponent<InterpolatedTransform>();
     }
 
     // Update is called once per frame
@@ -42,8 +44,8 @@ public class PlayerController : MonoBehaviour
 
         transform.localEulerAngles = new Vector3(0, 0, -velocity*0.5f);
 
-        float alpha = (Time.time - Time.fixedTime) / Time.fixedDeltaTime;
-        transform.position = Vector3.Lerp(transform.position, new Vector3(position, 0, 0), alpha);
+        /*float alpha = (Time.time - Time.fixedTime) / Time.fixedDeltaTime;
+        transform.position = Vector3.Lerp(transform.position, new Vector3(position, 0, 0), alpha);*/
     }
 
     private void FixedUpdate()
@@ -67,9 +69,11 @@ public class PlayerController : MonoBehaviour
 
         float newX = Mathf.Clamp(position + velocity * Time.fixedDeltaTime + dashOffset, -maxDistance, maxDistance);
         position = newX;
-        
+        transform.position = new Vector3(position, 0, 0);
 
         if (dashTimer > 0)
             dashTimer -= Time.fixedDeltaTime;
+
+        interpolatedTransform.LateFixedUpdate();
     }
 }
