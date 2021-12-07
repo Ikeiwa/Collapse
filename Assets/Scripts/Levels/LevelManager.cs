@@ -126,7 +126,7 @@ public class LevelManager : MonoBehaviour
 
         levelCurve.curveTarget = Vector3.zero;
         curveChangeTimer = 100;
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(0.01f);
 
         LoadLevel(currentLevelIndex+1);
     }
