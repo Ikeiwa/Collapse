@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 
 public class LevelManager : MonoBehaviour
 {
-    public LevelManager instance { get; private set; }
+    public static LevelManager instance { get; private set; }
 
     public LevelData[] levels;
     public Transform tilesRoot;

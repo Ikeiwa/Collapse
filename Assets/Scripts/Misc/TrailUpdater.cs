@@ -40,7 +40,6 @@ public class TrailUpdater : MonoBehaviour
         for (int i = 0; i < quality; i++)
         {
             float speedFactor = Mathf.Pow(((float)i / quality)+0.1f,1)+0.01f;
-            Debug.Log(speedFactor);
             positions[i] = Vector3.Lerp(positions[i], transform.TransformPoint(basePositions[i]), Time.deltaTime * trailSpeed / speedFactor);
         }
         trail.SetPositions(positions);

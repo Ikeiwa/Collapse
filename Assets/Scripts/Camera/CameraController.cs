@@ -42,7 +42,7 @@ public class CameraController : MonoBehaviour
         currentShake = StartCoroutine(ShakeCoroutine(duration, magnitude, damping, fadeCurve));
     }
 
-    public IEnumerator ShakeCoroutine(float duration, float magnitude, float damping, AnimationCurve fadeCurve)
+    private IEnumerator ShakeCoroutine(float duration, float magnitude, float damping, AnimationCurve fadeCurve)
     {
         Vector3 orignalPosition = transform.position;
         float elapsed = 0f;

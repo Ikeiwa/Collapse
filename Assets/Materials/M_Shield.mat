@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_Sky
-  m_Shader: {fileID: 4800000, guid: ce0c5ca10ca32cb47a08ff0d0d436d3f, type: 3}
+  m_Name: M_Shield
+  m_Shader: {fileID: 4800000, guid: 7606dca4f00e545469f71445b1752ab8, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -20,9 +20,8 @@ Material:
     serializedVersion: 3
     m_TexEnvs: []
     m_Floats:
-    - _GradientOffset: 0.19
-    - _GradientPower: 0.73
+    - _Break: 0
+    - _Progress: 0
     m_Colors:
-    - _ColorHorizon: {r: 0, g: 0, b: 0, a: 0}
-    - _ColorZenith: {r: 0.5058824, g: 0.9254902, b: 0.9254902, a: 1}
+    - _Color: {r: 0, g: 1, b: 1, a: 0.5019608}
   m_BuildTextureStacks: []

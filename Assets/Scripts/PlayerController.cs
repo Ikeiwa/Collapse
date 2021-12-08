@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public GameObject dashTrail;
+    public ParticleSystem jumpSmoke;
 
     public float moveSpeed = 5;
     public float accel = 10;
@@ -22,13 +23,19 @@ public class PlayerController : MonoBehaviour
 
     private float move = 0;
     private float dash = 0;
+    private float jump = 0;
+    private bool shielded = false;
 
     private InterpolatedTransform interpolatedTransform;
+    private Animator anim;
+
+    private static readonly int VelocityParam = Animator.StringToHash("Velocity");
 
     // Start is called before the first frame update
     void Awake()
     {
         interpolatedTransform = GetComponent<InterpolatedTransform>();
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -42,10 +49,31 @@ public class PlayerController : MonoBehaviour
 
         }
 
-        transform.localEulerAngles = new Vector3(0, 0, -velocity*0.5f);
+        if (Input.GetKeyDown(KeyCode.Space) && jump == 0)
+        {
+            jump = 1;
+            anim.SetBool("Jumping", true);
+        }
 
-        /*float alpha = (Time.time - Time.fixedTime) / Time.fixedDeltaTime;
-        transform.position = Vector3.Lerp(transform.position, new Vector3(position, 0, 0), alpha);*/
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            shielded = !shielded;
+            anim.SetBool("HasShield", shielded);
+        }
+
+        if (jump > 0)
+        {
+            jump -= Time.deltaTime;
+            if (jump < 0)
+            {
+                jump = 0;
+                anim.SetBool("Jumping", false);
+                LevelManager.instance.mainCamera.Shake(0.1f,0.5f, 10);
+            }
+        }
+
+        transform.localEulerAngles = new Vector3(0, 0, -velocity*0.5f);
+        anim.SetFloat(VelocityParam, velocity);
     }
 
     private void FixedUpdate()
@@ -69,11 +97,16 @@ public class PlayerController : MonoBehaviour
 
         float newX = Mathf.Clamp(position + velocity * Time.fixedDeltaTime + dashOffset, -maxDistance, maxDistance);
         position = newX;
-        transform.position = new Vector3(position, 0, 0);
+        transform.position = new Vector3(position, Mathf.Sin(jump*Mathf.PI)*8, 0);
 
         if (dashTimer > 0)
             dashTimer -= Time.fixedDeltaTime;
 
         interpolatedTransform.LateFixedUpdate();
+    }
+
+    public void PlayJumpSmoke()
+    {
+        jumpSmoke.Play();
     }
 }
