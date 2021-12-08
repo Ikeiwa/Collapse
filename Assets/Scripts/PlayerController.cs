@@ -53,6 +53,7 @@ public class PlayerController : MonoBehaviour
 
     public void UsePowerup()
     {
+        Debug.Log("Use Powerup");
         switch (powerUp)
         {
             case PowerUp.None: return;
@@ -83,12 +84,12 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        move = Input.GetAxisRaw("Horizontal");
-        dash = Input.GetAxisRaw("Dash");
+        move = Input.GetAxis("Horizontal");
+        dash = Input.GetAxis("Dash");
 
         if (Input.GetButtonDown("Fire"))
         {
-
+            Debug.Log("Fire");
         }
 
         if (Input.GetButtonDown("PowerUp"))
