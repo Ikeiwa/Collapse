@@ -3,10 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum PowerUp
+{
+    None,
+    Jump,
+    Shield,
+    Bomb
+}
+
 public class PlayerController : MonoBehaviour
 {
     public GameObject dashTrail;
     public ParticleSystem jumpSmoke;
+    
 
     public float moveSpeed = 5;
     public float accel = 10;
@@ -23,11 +32,14 @@ public class PlayerController : MonoBehaviour
 
     private float move = 0;
     private float dash = 0;
+
+    private PowerUp powerUp = PowerUp.None;
     private float jump = 0;
     private bool shielded = false;
 
     private InterpolatedTransform interpolatedTransform;
     private Animator anim;
+    private AudioSource audioSource;
 
     private static readonly int VelocityParam = Animator.StringToHash("Velocity");
 
@@ -36,6 +48,36 @@ public class PlayerController : MonoBehaviour
     {
         interpolatedTransform = GetComponent<InterpolatedTransform>();
         anim = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
+    }
+
+    public void UsePowerup()
+    {
+        switch (powerUp)
+        {
+            case PowerUp.None: return;
+            case PowerUp.Jump:
+                if (jump == 0)
+                {
+                    jump = 1;
+                    anim.SetBool("Jumping", true);
+                }
+                else return;
+                break;
+            case PowerUp.Shield:
+                if (!shielded)
+                {
+                    shielded = true;
+                    anim.SetBool("HasShield", shielded);
+                }
+                else return;
+                break;
+            case PowerUp.Bomb:
+
+                break;
+        }
+
+        powerUp = PowerUp.None;
     }
 
     // Update is called once per frame
@@ -49,27 +91,9 @@ public class PlayerController : MonoBehaviour
 
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && jump == 0)
+        if (Input.GetButtonDown("PowerUp"))
         {
-            jump = 1;
-            anim.SetBool("Jumping", true);
-        }
-
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            shielded = !shielded;
-            anim.SetBool("HasShield", shielded);
-        }
-
-        if (jump > 0)
-        {
-            jump -= Time.deltaTime;
-            if (jump < 0)
-            {
-                jump = 0;
-                anim.SetBool("Jumping", false);
-                LevelManager.instance.mainCamera.Shake(0.1f,0.5f, 10);
-            }
+            UsePowerup();
         }
 
         transform.localEulerAngles = new Vector3(0, 0, -velocity*0.5f);
@@ -102,11 +126,40 @@ public class PlayerController : MonoBehaviour
         if (dashTimer > 0)
             dashTimer -= Time.fixedDeltaTime;
 
+        if (jump > 0)
+        {
+            jump -= Time.fixedDeltaTime;
+            if (jump < 0)
+            {
+                jump = 0;
+                anim.SetBool("Jumping", false);
+                LevelManager.instance.mainCamera.Shake(0.1f, 0.5f, 10);
+            }
+        }
+
         interpolatedTransform.LateFixedUpdate();
+    }
+
+    public bool TestObstacleHit(ObstacleBase obstacle)
+    {
+        if (position > obstacle.position - obstacle.width / 2 && position < obstacle.position + obstacle.width / 2)
+        {
+            if (!obstacle.jumpable || (obstacle.jumpable && (jump < 0.25f || jump > 0.75f)))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public void PlayJumpSmoke()
     {
         jumpSmoke.Play();
+    }
+
+    public void PlaySound(AudioClip clip)
+    {
+        audioSource.PlayOneShot(clip);
     }
 }
