@@ -51,6 +51,12 @@ public class PlayerController : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
+    public void ObtainPowerup(PowerUp newPowerUp)
+    {
+        if (powerUp == PowerUp.None)
+            powerUp = newPowerUp;
+    }
+
     public void UsePowerup()
     {
         Debug.Log("Use Powerup");
@@ -68,8 +74,7 @@ public class PlayerController : MonoBehaviour
             case PowerUp.Shield:
                 if (!shielded)
                 {
-                    shielded = true;
-                    anim.SetBool("HasShield", shielded);
+                    SetShieldState(true);
                 }
                 else return;
                 break;
@@ -97,7 +102,12 @@ public class PlayerController : MonoBehaviour
             UsePowerup();
         }
 
-        transform.localEulerAngles = new Vector3(0, 0, -velocity*0.5f);
+        if(Input.GetKeyDown(KeyCode.Keypad1))
+            ObtainPowerup(PowerUp.Jump);
+
+        if (Input.GetKeyDown(KeyCode.Keypad2))
+            ObtainPowerup(PowerUp.Shield);
+
         anim.SetFloat(VelocityParam, velocity);
     }
 
@@ -123,6 +133,7 @@ public class PlayerController : MonoBehaviour
         float newX = Mathf.Clamp(position + velocity * Time.fixedDeltaTime + dashOffset, -maxDistance, maxDistance);
         position = newX;
         transform.position = new Vector3(position, Mathf.Sin(jump*Mathf.PI)*8, 0);
+        transform.localEulerAngles = new Vector3(0, 0, -velocity * 0.5f);
 
         if (dashTimer > 0)
             dashTimer -= Time.fixedDeltaTime;
@@ -147,11 +158,31 @@ public class PlayerController : MonoBehaviour
         {
             if (!obstacle.jumpable || (obstacle.jumpable && (jump < 0.25f || jump > 0.75f)))
             {
+                if (shielded)
+                {
+                    SetShieldState(false);
+                }
+                else
+                {
+                    LevelManager.instance.Death();
+                }
                 return true;
             }
         }
 
         return false;
+    }
+
+    private void SetShieldState(bool hasShield)
+    {
+        shielded = hasShield;
+        anim.SetBool("HasShield", shielded);
+        AudioEffectsController.instance.SetShieldEffect(hasShield);
+        if (!hasShield)
+        {
+            LevelManager.instance.SetGameSpeed(0.05f);
+            LevelManager.instance.SetGameSpeed(1,1);
+        }
     }
 
     public void PlayJumpSmoke()

@@ -68,7 +68,5 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.K))
-            Shake(1,3f,10);
     }
 }

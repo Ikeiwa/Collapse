@@ -24,9 +24,10 @@ public class ObstacleBase : MonoBehaviour
 
     public virtual void HasHit() { }
 
-    private void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
-        progress = (targetTime - Time.fixedUnscaledTimeAsDouble) / (targetTime - spawnTime);
+        progress = (targetTime - Time.fixedTimeAsDouble) / (targetTime - spawnTime);
+
         if (!triedHit && progress <= 0)
         {
             triedHit = true;

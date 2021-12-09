@@ -8,7 +8,6 @@ Shader "Unlit/VertexEmit Blend"
     {
         Tags {"Queue" = "Transparent" "IgnoreProjector" = "True" "RenderType" = "Transparent"}
         LOD 100
-        ZWrite Off
         Blend SrcAlpha OneMinusSrcAlpha
 
         Pass

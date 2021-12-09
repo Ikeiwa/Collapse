@@ -143,3 +143,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelManager: {fileID: 0}
+  transitionClip: {fileID: 8300000, guid: 190574720d1d5bf4c848497b3d553778, type: 3}

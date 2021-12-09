@@ -53,13 +53,13 @@ AudioMixerController:
   m_UpdateMode: 0
   m_ExposedParameters:
   - guid: a961fe4be829c3f428f751268dad5e9c
-    name: MyExposedParam 3
+    name: Speed
   - guid: b0506cb5d910d3a4888cbba8f54ee18e
-    name: MyExposedParam
+    name: LowPass
   - guid: 65a8e5d2673b23246aeed98798acedc0
-    name: MyExposedParam 1
+    name: ShieldLow
   - guid: 92e09e6b5168a444997b4298effecc96
-    name: MyExposedParam 2
+    name: ShieldHigh
   m_AudioMixerGroupViews:
   - guids:
     - 307afb8555f120f4ab2b59d1e223a687
@@ -137,7 +137,7 @@ AudioMixerSnapshotController:
     08871c77636e48540b36ad910626cd3f: 10
     92e09e6b5168a444997b4298effecc96: 1
     a5b4137bed78b1a46b73f1bbb29e93e7: 1
-    b4b5797cc66a4074ea10f3fa86bd177f: -10
+    b4b5797cc66a4074ea10f3fa86bd177f: -20
     bb59cfcc109b7624d84de4950d105dfb: 111
     cbe3a12e472ad61479d689e79ea1d3dd: 4096
     e18bb79e6f4e5f849ad5c3a712093822: 3

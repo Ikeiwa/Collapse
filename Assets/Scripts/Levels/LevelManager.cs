@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using Random = UnityEngine.Random;
 
 public class LevelManager : MonoBehaviour
@@ -10,8 +11,13 @@ public class LevelManager : MonoBehaviour
 
     public LevelData[] levels;
     public Transform tilesRoot;
+    public Transform lanesRoot;
+    public Transform leftLane;
+    public Transform rightLane;
     public Transform roadCamRoot;
+    public AudioMixer audioMixer;
     public AudioSource musicPlayer;
+    public AudioSource effectsPlayer;
     public LevelIntroText levelIntroText;
     public float speed { get; private set; }
     public int currentLevelIndex { get; private set; }
@@ -62,8 +68,12 @@ public class LevelManager : MonoBehaviour
                 curveChangeTimer = Random.Range(5, 15);
                 levelCurve.curveTarget = currentLevel.GetRandomCurve();
             }
+
+            if (Input.GetKeyDown(KeyCode.L))
+            {
+                SpawnObstacle(currentLevel.obstacles[0],Random.Range(0,4),2);
+            }
         }
-        
     }
 
     public void StartGame()
@@ -113,20 +123,11 @@ public class LevelManager : MonoBehaviour
 
         yield return new WaitForSeconds(currentLevel.duration);
 
-        timer = 0;
-        while (timer < 2)
-        {
-            musicPlayer.volume = 1-(timer / 2.0f);
-            timer += Time.deltaTime;
-            yield return null;
-        }
-        musicPlayer.Stop();
-
-        
+        StartCoroutine(UtilityCoroutines.FadeVolume(musicPlayer, 0, 2, true));
 
         levelCurve.curveTarget = Vector3.zero;
         curveChangeTimer = 100;
-        yield return new WaitForSeconds(0.01f);
+        yield return new WaitForSeconds(2f);
 
         LoadLevel(currentLevelIndex+1);
     }
@@ -140,5 +141,34 @@ public class LevelManager : MonoBehaviour
         if(lastTile)
             tile.transform.localPosition = lastTile.transform.localPosition + new Vector3(0, 0, 500);
         lastTile = tile;
+    }
+
+    public void SpawnObstacle(ObstacleBase obstacle, float position, float time = 5)
+    {
+        ObstacleBase obstacleInst = Instantiate(obstacle, new Vector3(0, 0, 10000), Quaternion.identity, lanesRoot);
+        obstacleInst.time = time;
+        obstacleInst.position = Mathf.Lerp(leftLane.localPosition.x, rightLane.localPosition.x, position/3.0f);
+    }
+
+    public void SetGameSpeed(float speed)
+    {
+        Time.timeScale = speed;
+        AudioEffectsController.instance.SetAudioSpeed(speed);
+        AudioEffectsController.instance.SetLowPassEffect(1-speed);
+    }
+
+    public void SetGameSpeed(float speed, float duration)
+    {
+        StartCoroutine(UtilityCoroutines.FadeTimeSpeed(speed, duration));
+        AudioEffectsController.instance.SetAudioSpeed(speed, duration);
+        AudioEffectsController.instance.SetLowPassEffect(1- speed, duration);
+    }
+
+    public void Death()
+    {
+        StartCoroutine(UtilityCoroutines.FadeTimeSpeed(0, 2));
+        AudioEffectsController.instance.SetAudioSpeed(0, 2);
+        AudioEffectsController.instance.SetLowPassEffect(1, 2);
+        gameStarted = false;
     }
 }

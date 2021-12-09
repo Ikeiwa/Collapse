@@ -14,13 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: Plains
   distance: 1000
-  duration: 10
+  duration: 30
   music: {fileID: 8300000, guid: 0b16035a7143cfe46934f5f605bd6545, type: 3}
   skyColor: {r: 0.34827453, g: 0.83, b: 0.83, a: 0}
   maxCurve: {x: 1, y: 0.5, z: 0}
   startTile: {fileID: -5928169787275644670, guid: a9a0752d4cd529c42bffe2df2795fa18, type: 3}
   tiles:
   - {fileID: -5928169787275644670, guid: a9a0752d4cd529c42bffe2df2795fa18, type: 3}
-  obstacles: []
+  obstacles:
+  - {fileID: 4662444518709677401, guid: 6e21c37c01161d0458a24d739c497930, type: 3}
   obstaclesChance: []
   enemyChance: []
