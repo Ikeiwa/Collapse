@@ -182,6 +182,10 @@ public class PlayerController : MonoBehaviour
         {
             LevelManager.instance.SetGameSpeed(0.05f);
             LevelManager.instance.SetGameSpeed(1,1);
+            PostProcessController.instance.SetChromaticAberation(1);
+            PostProcessController.instance.SetChromaticAberation(0,1);
+            PostProcessController.instance.SetLensDistortion(-50);
+            PostProcessController.instance.SetLensDistortion(0, 1);
         }
     }
 
