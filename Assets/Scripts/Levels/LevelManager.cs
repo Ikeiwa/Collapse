@@ -157,11 +157,11 @@ public class LevelManager : MonoBehaviour
         AudioEffectsController.instance.SetLowPassEffect(1-speed);
     }
 
-    public void SetGameSpeed(float speed, float duration)
+    public void SetGameSpeed(float speed, float duration, AnimationCurve curve = null)
     {
-        StartCoroutine(UtilityCoroutines.FadeTimeSpeed(speed, duration));
-        AudioEffectsController.instance.SetAudioSpeed(speed, duration);
-        AudioEffectsController.instance.SetLowPassEffect(1- speed, duration);
+        StartCoroutine(UtilityCoroutines.FadeTimeSpeed(speed, duration, curve));
+        AudioEffectsController.instance.SetAudioSpeed(speed, duration, curve);
+        AudioEffectsController.instance.SetLowPassEffect(1- speed, duration, curve);
     }
 
     public void Death()

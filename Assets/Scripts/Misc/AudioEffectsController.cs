@@ -35,9 +35,9 @@ public class AudioEffectsController : MonoBehaviour
         audioMixer.SetFloat("LowPass", (1 - intensity) * 22000.0f);
     }
 
-    public void SetLowPassEffect(float intensity, float duration)
+    public void SetLowPassEffect(float intensity, float duration, AnimationCurve curve = null)
     {
-        StartCoroutine(UtilityCoroutines.FadeMixerParam(audioMixer, "LowPass", (1-intensity)*22000.0f, 0.5f));
+        StartCoroutine(UtilityCoroutines.FadeMixerParam(audioMixer, "LowPass", (1-intensity)*22000.0f, 0.5f, curve));
     }
 
     public void SetAudioSpeed(float speed)
@@ -45,8 +45,8 @@ public class AudioEffectsController : MonoBehaviour
         audioMixer.SetFloat("Speed", speed);
     }
 
-    public void SetAudioSpeed(float speed, float duration)
+    public void SetAudioSpeed(float speed, float duration, AnimationCurve curve = null)
     {
-        StartCoroutine(UtilityCoroutines.FadeMixerParam(audioMixer, "Speed", speed, 0.5f));
+        StartCoroutine(UtilityCoroutines.FadeMixerParam(audioMixer, "Speed", speed, 0.5f, curve));
     }
 }
