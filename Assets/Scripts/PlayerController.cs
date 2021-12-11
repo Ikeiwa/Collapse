@@ -54,7 +54,15 @@ public class PlayerController : MonoBehaviour
     public void ObtainPowerup(PowerUp newPowerUp)
     {
         if (powerUp == PowerUp.None)
+        {
+            if (newPowerUp == PowerUp.Shield)
+            {
+                if(!shielded)
+                    SetShieldState(true);
+                return;
+            }
             powerUp = newPowerUp;
+        }
     }
 
     public void UsePowerup()
@@ -156,7 +164,7 @@ public class PlayerController : MonoBehaviour
     {
         if (position > obstacle.position - obstacle.width / 2 && position < obstacle.position + obstacle.width / 2)
         {
-            if (!obstacle.jumpable || (obstacle.jumpable && (jump < 0.25f || jump > 0.75f)))
+            if (!obstacle.jumpable || (obstacle.jumpable && (jump < 0.1f || jump > 0.9f)))
             {
                 if (shielded)
                 {
@@ -181,11 +189,11 @@ public class PlayerController : MonoBehaviour
         if (!hasShield)
         {
             LevelManager.instance.SetGameSpeed(0.05f);
-            LevelManager.instance.SetGameSpeed(1,1, CurveLibrary.easeOut);
+            LevelManager.instance.SetGameSpeed(1,2, CurveLibrary.easeOut);
             PostProcessController.instance.SetChromaticAberation(1);
-            PostProcessController.instance.SetChromaticAberation(0,1, CurveLibrary.easeOut);
+            PostProcessController.instance.SetChromaticAberation(0,2, CurveLibrary.easeOut);
             PostProcessController.instance.SetLensDistortion(-50);
-            PostProcessController.instance.SetLensDistortion(0, 1, CurveLibrary.easeOut);
+            PostProcessController.instance.SetLensDistortion(0, 2, CurveLibrary.easeOut);
         }
     }
 

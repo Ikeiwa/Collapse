@@ -47,7 +47,8 @@ Shader "Unlit/VertexEmit Blend"
 
             fixed4 frag (v2f i) : SV_Target
             {
-				float4 col = i.color * _EmitPower;
+				float4 col = i.color;
+                col.rgb *= _EmitPower;
                 UNITY_APPLY_FOG(i.fogCoord, col);
 				return col;
             }
