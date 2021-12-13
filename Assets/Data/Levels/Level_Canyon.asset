@@ -21,6 +21,7 @@ MonoBehaviour:
   startTile: {fileID: 8786145137870911821, guid: 82fec335612fc4b448404bbfe592de84, type: 3}
   tiles:
   - {fileID: 6391478620655688735, guid: 5691a6685186cad4cbe3706ced9bbb8b, type: 3}
-  obstacles: []
+  obstacles:
+  - {fileID: 1301663821623109222, guid: 89cabfb1c414b244b9b8ad5e7638403e, type: 3}
   obstaclesChance: []
   enemyChance: []
