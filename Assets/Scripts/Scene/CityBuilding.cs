@@ -32,7 +32,7 @@ public class CityBuilding : MonoBehaviour
         Destroy(this);
     }
 
-    private void OnDrawGizmosSelected()
+    private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(transform.position,Vector3.Scale(new Vector3(2,0,2),transform.localScale));
