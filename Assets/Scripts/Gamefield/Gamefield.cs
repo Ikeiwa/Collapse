@@ -15,6 +15,8 @@ public class Gamefield : MonoBehaviour
 
     public GameObject PREFAB_Enemy_Basic;
 
+    public GameObject PREFAB_Shot_LinearSmall;
+
     public GameObject anchorBackLeft;
     public GameObject anchorBackRight;
 
@@ -48,6 +50,20 @@ public class Gamefield : MonoBehaviour
 
     void FixedUpdate()
     {
-        
+
+    }
+
+    private static readonly float OOBthreshold = 1.1f;
+
+    /// <summary>
+    /// Predicate that tests if the bounds of an object are within the game field.
+    /// Only tests horizontal space, this has no vertical killplane.
+    /// </summary>
+    /// <param name="t"></param>
+    /// <returns>True if the object is out of bounds by more than a threshold.</returns>
+    public bool IsOOB(Transform t)
+    {
+        return t.position.x < xmin - OOBthreshold || t.position.x > xmax + OOBthreshold
+            || t.position.z < zmin - OOBthreshold || t.position.z > zmax + OOBthreshold;
     }
 }
