@@ -28,6 +28,7 @@ public class LevelManager : MonoBehaviour
 
     private bool gameStarted = false;
 
+    private Material skyMaterial;
     private LevelCurve levelCurve;
     private LevelTile nextLevelStart;
     private LevelTile lastTile;
@@ -43,12 +44,15 @@ public class LevelManager : MonoBehaviour
 
         instance = this;
         levelCurve = GetComponent<LevelCurve>();
+
+        skyMaterial = new Material(RenderSettings.skybox);
+        RenderSettings.skybox = skyMaterial;
     }
 
     void Start()
     {
         RenderSettings.fogColor = levels[0].skyColor;
-        RenderSettings.skybox.SetColor(ColorHorizon, levels[0].skyColor);
+        skyMaterial.SetColor(ColorHorizon, levels[0].skyColor);
         StartGame();
     }
 
@@ -80,7 +84,7 @@ public class LevelManager : MonoBehaviour
     {
         gameStarted = true;
         speed = 50;
-        LoadLevel(3);
+        LoadLevel(0);
     }
 
     public void LoadLevel(int level = 0)
@@ -108,12 +112,14 @@ public class LevelManager : MonoBehaviour
         {
             Color newColor = Color.Lerp(baseColor, currentLevel.skyColor, timer / 2.0f);
             RenderSettings.fogColor = newColor;
-            RenderSettings.skybox.SetColor(ColorHorizon, newColor);
+            skyMaterial.SetColor(ColorHorizon, newColor);
             timer += Time.deltaTime;
             yield return null;
         }
         RenderSettings.fogColor = currentLevel.skyColor;
-        RenderSettings.skybox.SetColor(ColorHorizon, currentLevel.skyColor);
+        skyMaterial.SetColor(ColorHorizon, currentLevel.skyColor);
+
+        mainCamera.SetCombatView(true);
 
         yield return new WaitForSeconds(transitionDuration);
         musicPlayer.volume = 1;
@@ -125,6 +131,7 @@ public class LevelManager : MonoBehaviour
 
         StartCoroutine(UtilityCoroutines.FadeVolume(musicPlayer, 0, 2, true));
 
+        mainCamera.SetCombatView(false);
         levelCurve.curveTarget = Vector3.zero;
         curveChangeTimer = 100;
         yield return new WaitForSeconds(2f);
