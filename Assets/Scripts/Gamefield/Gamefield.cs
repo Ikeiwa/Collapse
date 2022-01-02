@@ -8,19 +8,42 @@ using UnityEngine;
 /// </summary>
 public class Gamefield : MonoBehaviour
 {
-    [SerializeField]
+    /// <summary>
+    /// Contains a pointer to the last awaken gamefield instance.
+    /// </summary>
+    public static Gamefield instance;
+
     public GameObject PREFAB_Enemy_Basic;
 
-    [SerializeField]
     public GameObject anchorBackLeft;
-    [SerializeField]
     public GameObject anchorBackRight;
 
-    public readonly List<GameObject> content = new List<GameObject>(200);
+    public GameObject player;
+
+    /// <summary>
+    /// Short access copies to know the gamefield location in world space.<br/>
+    /// Equivalent to <code>anchorBackLeft.transform.position.x</code>but this value is fixed on awake and does not move.
+    /// </summary>
+    [System.NonSerialized]
+    public float xmin = 0, xmax = 0, zmin = 0, zmax = 0;
+
+    public readonly List<GameObject> content_enemies = new List<GameObject>(30);
+    public readonly List<GameObject> content_projectiles = new List<GameObject>(200);
+    public readonly List<GameObject> content_powerups = new List<GameObject>(10);
+    public readonly List<GameObject> content_projectilesAlly = new List<GameObject>(100);
+
+    void Awake()
+    {
+        instance = this;
+        xmin = anchorBackLeft.transform.position.x;
+        xmax = anchorBackRight.transform.position.x;
+        zmin = player.transform.position.z;
+        zmax = anchorBackRight.transform.position.z;
+    }
 
     void Start()
     {
-        Instantiate(PREFAB_Enemy_Basic, anchorBackLeft.transform.position, Quaternion.identity, this.transform);
+        content_enemies.Add(Instantiate(PREFAB_Enemy_Basic, anchorBackLeft.transform.position, Quaternion.identity, this.transform));
     }
 
     void FixedUpdate()
