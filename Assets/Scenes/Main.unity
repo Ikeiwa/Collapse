@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.34814456, g: 0.82958966, b: 0.82958966, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -745,6 +745,10 @@ MonoBehaviour:
   player: {fileID: 784792442}
   height: 4.5
   depth: 6
+  pitch: 0
+  heightCombat: 7.5
+  depthCombat: 4
+  pitchCombat: 30
   positionFactor: 0.6
   rotationFactor: 0.2
   smoothness: 0.1

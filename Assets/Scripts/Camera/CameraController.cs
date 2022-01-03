@@ -8,8 +8,15 @@ using Random = UnityEngine.Random;
 public class CameraController : MonoBehaviour
 {
     public PlayerController player;
+
     public float height = 4.5f;
-    public float depth = 10;
+    public float depth = 6;
+    public float pitch = 0;
+
+    public float heightCombat = 7.5f;
+    public float depthCombat = 4;
+    public float pitchCombat = 30;
+
     public float positionFactor = 0.4f;
     public float rotationFactor = 0.5f;
     public float smoothness = 3;
@@ -20,6 +27,7 @@ public class CameraController : MonoBehaviour
     private float target = 0;
     private Vector3 shakeOffset;
     private Coroutine currentShake;
+    private float inCombat = 0;
 
     private void Awake()
     {
@@ -57,13 +65,34 @@ public class CameraController : MonoBehaviour
         shakeOffset = Vector3.zero;
     }
 
+    public void SetCombatView(bool inCombat)
+    {
+        StartCoroutine(CombatTransition(inCombat ? 1 : 0));
+    }
+
+    private IEnumerator CombatTransition(float targetCombat)
+    {
+        float baseInCombat = inCombat;
+        float timer = 0;
+        while (timer < 2)
+        {
+            inCombat = Mathf.Lerp(baseInCombat, targetCombat, Easing.Quadratic.InOut(timer / 2));
+            timer += Time.deltaTime;
+            yield return null;
+        }
+    }
+
     // Update is called once per frame
     void LateUpdate()
     {
         target = Mathf.Lerp(target, player.transform.localPosition.x, Time.deltaTime / smoothness);
 
-        transform.localPosition = new Vector3(target * positionFactor, height, -depth) + shakeOffset;
-        transform.localEulerAngles = new Vector3(0, -target * rotationFactor, 0);
+        float targetHeight = Mathf.Lerp(height, heightCombat, inCombat);
+        float targetDepth = Mathf.Lerp(depth, depthCombat, inCombat);
+        float targetPitch = Mathf.Lerp(pitch, pitchCombat, inCombat);
+
+        transform.localPosition = new Vector3(target * positionFactor, targetHeight, -targetDepth) + shakeOffset;
+        transform.localEulerAngles = new Vector3(targetPitch, -target * rotationFactor, 0);
     }
 
     private void Update()
