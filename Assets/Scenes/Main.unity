@@ -644,7 +644,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 1983
+    m_Bits: 8127
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -6556,6 +6556,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PREFAB_Enemy_Basic: {fileID: 8813779941746551171, guid: 4edc08d4657bf9042803df61910aa794, type: 3}
   PREFAB_Shot_LinearSmall: {fileID: 1444330665011068520, guid: 76f47d32f33ed424688a8b6d85bb0abe, type: 3}
+  PREFAB_Shot_Ally: {fileID: 9205238644211774724, guid: 759c929276a2f0747ba90a33df979b6f, type: 3}
   anchorBackLeft: {fileID: 1191181163}
   anchorBackRight: {fileID: 4982923}
   player: {fileID: 141516994}
@@ -7314,7 +7315,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7037033439716358653, guid: a264ac0eb713bdd4fab8af3656fa2c98, type: 3}
       propertyPath: m_IsTrigger
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8482300863321458172, guid: a264ac0eb713bdd4fab8af3656fa2c98, type: 3}
       propertyPath: m_LocalPosition.x
