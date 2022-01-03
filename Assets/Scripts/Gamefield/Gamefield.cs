@@ -29,10 +29,10 @@ public class Gamefield : MonoBehaviour
     [System.NonSerialized]
     public float xmin = 0, xmax = 0, zmin = 0, zmax = 0;
 
-    public readonly List<GameObject> content_enemies = new List<GameObject>(30);
-    public readonly List<GameObject> content_projectiles = new List<GameObject>(200);
-    public readonly List<GameObject> content_powerups = new List<GameObject>(10);
-    public readonly List<GameObject> content_projectilesAlly = new List<GameObject>(100);
+    private readonly List<GameObject> content_enemies = new List<GameObject>(30);
+    private readonly List<GameObject> content_projectiles = new List<GameObject>(200);
+    private readonly List<GameObject> content_powerups = new List<GameObject>(10);
+    private readonly List<GameObject> content_projectilesAlly = new List<GameObject>(100);
 
     void Awake()
     {
@@ -45,12 +45,29 @@ public class Gamefield : MonoBehaviour
 
     void Start()
     {
-        content_enemies.Add(Instantiate(PREFAB_Enemy_Basic, anchorBackLeft.transform.position, Quaternion.identity, this.transform));
+        AddEnemy(PREFAB_Enemy_Basic, anchorBackLeft.transform.position, Quaternion.identity);
     }
 
     void FixedUpdate()
     {
 
+    }
+
+    public void AddEnemy(GameObject prefab, Vector3 position, Quaternion rotation)
+    {
+        content_enemies.Add(Instantiate(prefab, position, rotation, transform));
+    }
+    public void AddProjectile(GameObject prefab, Vector3 position, Quaternion rotation)
+    {
+        content_projectiles.Add(Instantiate(prefab, position, rotation, transform));
+    }
+    public void AddPowerup(GameObject prefab, Vector3 position, Quaternion rotation)
+    {
+        content_powerups.Add(Instantiate(prefab, position, rotation, transform));
+    }
+    public void AddProjectileAlly(GameObject prefab, Vector3 position, Quaternion rotation)
+    {
+        content_projectilesAlly.Add(Instantiate(prefab, position, rotation, transform));
     }
 
     private static readonly float OOBthreshold = 1.1f;

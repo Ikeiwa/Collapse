@@ -31,7 +31,7 @@ public class TestEnemyBehavior : MonoBehaviour
 
         if (!left && frameloop <= 5)
         {
-            gf.content_projectiles.Add(Instantiate(gf.PREFAB_Shot_LinearSmall, transform.position, Quaternion.Euler(new Vector3(180, 0, -90)), gf.transform));
+            gf.AddProjectile(gf.PREFAB_Shot_LinearSmall, transform.position, Quaternion.Euler(new Vector3(180, 0, -90)));
         }
     }
 }
