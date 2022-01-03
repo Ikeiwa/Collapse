@@ -16,6 +16,7 @@ public class Gamefield : MonoBehaviour
     public GameObject PREFAB_Enemy_Basic;
 
     public GameObject PREFAB_Shot_LinearSmall;
+    public GameObject PREFAB_Shot_Ally;
 
     public GameObject anchorBackLeft;
     public GameObject anchorBackRight;
@@ -50,7 +51,8 @@ public class Gamefield : MonoBehaviour
 
     void FixedUpdate()
     {
-
+        AddProjectileAlly(PREFAB_Shot_Ally, player.transform.position + new Vector3(0.35f, 1.5f, 4), Quaternion.identity);
+        AddProjectileAlly(PREFAB_Shot_Ally, player.transform.position + new Vector3(-0.35f, 1.5f, 4), Quaternion.identity);
     }
 
     public void AddEnemy(GameObject prefab, Vector3 position, Quaternion rotation)
