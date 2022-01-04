@@ -53,12 +53,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dashTrail: {fileID: 5225716608960152771}
   jumpSmoke: {fileID: 1501263839811100520}
-  moveSpeed: 2000
+  maxSpeed: 50
   accel: 1000
   maxDistance: 15
   friction: 19
   dashChargeTime: 1
   dashDistance: 8
+  focusSpeedFactor: 0.33
 --- !u!114 &5030536459266041455
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10188,7 +10189,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: cc944d34569e125469cff0488ecfe96f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: cc944d34569e125469cff0488ecfe96f, type: 3}
       propertyPath: m_LocalPosition.z

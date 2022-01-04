@@ -17,12 +17,13 @@ public class PlayerController : MonoBehaviour
     public ParticleSystem jumpSmoke;
     
 
-    public float moveSpeed = 5;
+    public float maxSpeed = 5;
     public float accel = 10;
     public float maxDistance = 5;
     public float friction = 0.95f;
     public float dashChargeTime = 1f;
     public float dashDistance = 2;
+    public float focusSpeedFactor = 0.25f;
 
     public float velocity { get; private set; }
     public float position { get; private set; }
@@ -31,7 +32,8 @@ public class PlayerController : MonoBehaviour
     private float dashTimer = 0;
 
     private float move = 0;
-    private float dash = 0;
+    private bool dash = false;
+    private bool focused = false;
 
     private PowerUp powerUp = PowerUp.None;
     private float jump = 0;
@@ -98,9 +100,8 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         move = Input.GetAxis("Horizontal");
-        dash = Input.GetAxis("Dash");
 
-        if (Input.GetButtonDown("Fire"))
+        if (Input.GetButton("Fire"))
         {
             Debug.Log("Fire");
         }
@@ -109,6 +110,13 @@ public class PlayerController : MonoBehaviour
         {
             UsePowerup();
         }
+
+        if (Input.GetButtonDown("Dash"))
+        {
+            dash = true;
+        }
+
+        focused = Input.GetButton("Focus");
 
         if(Input.GetKeyDown(KeyCode.Keypad1))
             ObtainPowerup(PowerUp.Jump);
@@ -121,21 +129,29 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        float dashOffset = 0;
+        float playerSpeed = maxSpeed * (focused ? focusSpeedFactor : 1);
 
         velocity += -velocity * friction * Time.fixedDeltaTime;
-        velocity += Mathf.Clamp(move * Time.fixedDeltaTime * accel, -moveSpeed, moveSpeed);
+        velocity += move* Time.fixedDeltaTime* accel;
+        velocity = Mathf.Clamp(velocity, -playerSpeed, playerSpeed);
 
-        if (Mathf.Abs(dash) > 0.5f && canDash)
+        float dashOffset = 0;
+
+        if (dash && Mathf.Abs(move) > 0.5f && canDash)
         {
+            dash = false;
             canDash = false;
             dashTimer = dashChargeTime;
-            dashOffset = Mathf.Sign(dash) * dashDistance;
+            dashOffset = Mathf.Sign(move) * dashDistance;
             dashTrail.SetActive(true);
         }
         else if (dashTimer <= 0 && !canDash)
         {
             canDash = true;
+        }
+        else
+        {
+            dash = false;
         }
 
         float newX = Mathf.Clamp(position + velocity * Time.fixedDeltaTime + dashOffset, -maxDistance, maxDistance);

@@ -34,6 +34,7 @@ public class Gamefield : MonoBehaviour
     private readonly List<GameObject> content_projectiles = new List<GameObject>(200);
     private readonly List<GameObject> content_powerups = new List<GameObject>(10);
     private readonly List<GameObject> content_projectilesAlly = new List<GameObject>(100);
+    private readonly List<GameObject> content_obstacles = new List<GameObject>(100);
 
     void Awake()
     {
@@ -51,8 +52,8 @@ public class Gamefield : MonoBehaviour
 
     void FixedUpdate()
     {
-        AddProjectileAlly(PREFAB_Shot_Ally, player.transform.position + new Vector3(0.35f, 1.5f, 4), Quaternion.identity);
-        AddProjectileAlly(PREFAB_Shot_Ally, player.transform.position + new Vector3(-0.35f, 1.5f, 4), Quaternion.identity);
+        AddProjectileAlly(PREFAB_Shot_Ally, player.transform.position + new Vector3(0.35f, 0, 3), Quaternion.identity);
+        AddProjectileAlly(PREFAB_Shot_Ally, player.transform.position + new Vector3(-0.35f, 0, 3), Quaternion.identity);
     }
 
     public void AddEnemy(GameObject prefab, Vector3 position, Quaternion rotation)
@@ -71,6 +72,11 @@ public class Gamefield : MonoBehaviour
     {
         content_projectilesAlly.Add(Instantiate(prefab, position, rotation, transform));
     }
+    public void AddObstacle(float position, float time = 5)
+    {
+        content_enemies.Add(LevelManager.instance.SpawnObstacleRandom(position,time).gameObject);
+    }
+
 
     private static readonly float OOBthreshold = 1.1f;
 

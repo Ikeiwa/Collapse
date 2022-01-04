@@ -743,10 +743,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 784792442}
-  height: 4.5
+  height: 3
   depth: 6
   pitch: 0
-  heightCombat: 7.5
+  heightCombat: 6
   depthCombat: 4
   pitchCombat: 30
   positionFactor: 0.6
@@ -6349,7 +6349,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1116628040}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: -1, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1459567220}
@@ -7117,6 +7117,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 974166037}
     m_Modifications:
+    - target: {fileID: 417686888852756896, guid: a264ac0eb713bdd4fab8af3656fa2c98, type: 3}
+      propertyPath: moveSpeed
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 1501263839811100520, guid: a264ac0eb713bdd4fab8af3656fa2c98, type: 3}
       propertyPath: ForceModule.enabled
       value: 1

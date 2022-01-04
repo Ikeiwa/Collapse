@@ -63,9 +63,6 @@ public class LevelManager : MonoBehaviour
         {
             roadCamRoot.Translate(Vector3.forward * (speed * Time.deltaTime));
 
-            if (tilesRoot.childCount < 4)
-                SpawnTile();
-
             curveChangeTimer -= Time.deltaTime;
             if (curveChangeTimer <= 0)
             {
@@ -78,6 +75,9 @@ public class LevelManager : MonoBehaviour
                 SpawnObstacle(currentLevel.obstacles[0],Random.Range(0,4),2);
             }
         }
+
+        if (tilesRoot.childCount < 4)
+            SpawnTile();
     }
 
     public void StartGame()
@@ -150,11 +150,21 @@ public class LevelManager : MonoBehaviour
         lastTile = tile;
     }
 
-    public void SpawnObstacle(ObstacleBase obstacle, float position, float time = 5)
+    public ObstacleBase SpawnObstacle(ObstacleBase obstacle, float position, float time = 5)
     {
         ObstacleBase obstacleInst = Instantiate(obstacle, new Vector3(0, 0, 10000), Quaternion.identity, lanesRoot);
         obstacleInst.time = time;
         obstacleInst.position = Mathf.Lerp(leftLane.localPosition.x, rightLane.localPosition.x, position/3.0f);
+        return obstacleInst;
+    }
+
+    public ObstacleBase SpawnObstacleRandom(float position, float time = 5)
+    {
+        if (currentLevel.obstacles.Length == 0)
+            return null;
+
+        ObstacleBase selectedObstacle = currentLevel.obstacles[Random.Range(0, currentLevel.obstacles.Length)];
+        return SpawnObstacle(selectedObstacle, position, time);
     }
 
     public void SetGameSpeed(float speed)
