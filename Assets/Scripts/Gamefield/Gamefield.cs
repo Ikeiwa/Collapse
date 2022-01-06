@@ -52,10 +52,10 @@ public class Gamefield : MonoBehaviour
 
     void FixedUpdate()
     {
-        AddProjectileAlly(PREFAB_Shot_Ally, player.transform.position + new Vector3(0.35f, 0, 3), Quaternion.identity);
-        AddProjectileAlly(PREFAB_Shot_Ally, player.transform.position + new Vector3(-0.35f, 0, 3), Quaternion.identity);
+        
     }
 
+    //TODO: remove element from list when destroyed
     public void AddEnemy(GameObject prefab, Vector3 position, Quaternion rotation)
     {
         content_enemies.Add(Instantiate(prefab, position, rotation, transform));
@@ -74,7 +74,7 @@ public class Gamefield : MonoBehaviour
     }
     public void AddObstacle(float position, float time = 5)
     {
-        content_enemies.Add(LevelManager.instance.SpawnObstacleRandom(position,time).gameObject);
+        content_obstacles.Add(LevelManager.instance.SpawnObstacleRandom(position,time).gameObject);
     }
 
 

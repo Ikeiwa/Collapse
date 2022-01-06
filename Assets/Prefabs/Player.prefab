@@ -60,6 +60,7 @@ MonoBehaviour:
   dashChargeTime: 1
   dashDistance: 8
   focusSpeedFactor: 0.33
+  fireRate: 0.05
 --- !u!114 &5030536459266041455
 MonoBehaviour:
   m_ObjectHideFlags: 0

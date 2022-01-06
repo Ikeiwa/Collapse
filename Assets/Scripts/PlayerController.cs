@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     public float dashChargeTime = 1f;
     public float dashDistance = 2;
     public float focusSpeedFactor = 0.25f;
+    public float fireRate = 0.1f;
 
     public float velocity { get; private set; }
     public float position { get; private set; }
@@ -34,6 +35,8 @@ public class PlayerController : MonoBehaviour
     private float move = 0;
     private bool dash = false;
     private bool focused = false;
+
+    private float nextFire = 0;
 
     private PowerUp powerUp = PowerUp.None;
     private float jump = 0;
@@ -101,11 +104,6 @@ public class PlayerController : MonoBehaviour
     {
         move = Input.GetAxis("Horizontal");
 
-        if (Input.GetButton("Fire"))
-        {
-            Debug.Log("Fire");
-        }
-
         if (Input.GetButtonDown("PowerUp"))
         {
             UsePowerup();
@@ -171,6 +169,13 @@ public class PlayerController : MonoBehaviour
                 anim.SetBool("Jumping", false);
                 LevelManager.instance.mainCamera.Shake(0.1f, 0.5f, 10);
             }
+        }
+
+        if (Input.GetButton("Fire") && Time.time > nextFire)
+        {
+            nextFire = Time.time + fireRate;
+            Gamefield.instance.AddProjectileAlly(Gamefield.instance.PREFAB_Shot_Ally, transform.position + new Vector3(0.35f, 0, 3), Quaternion.identity);
+            Gamefield.instance.AddProjectileAlly(Gamefield.instance.PREFAB_Shot_Ally, transform.position + new Vector3(-0.35f, 0, 3), Quaternion.identity);
         }
 
         interpolatedTransform.LateFixedUpdate();
