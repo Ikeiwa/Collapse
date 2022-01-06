@@ -1,13 +1,16 @@
-Shader "Unlit/ProjectilePlayer"
+Shader "Collapse/Projectiles/Field"
 {
     Properties
     {
-        _Color("Color",Color) = (1,1,1,1)
+        [HDR]_Color("Color",Color) = (1,1,1,1)
     }
     SubShader
     {
-        Tags { "RenderType"="Opaque" }
+        Tags {"Queue" = "Transparent" "IgnoreProjector" = "True" "RenderType" = "Transparent"}
         LOD 100
+
+        ZWrite Off
+        Blend SrcAlpha OneMinusSrcAlpha
 
         Pass
         {
@@ -21,12 +24,14 @@ Shader "Unlit/ProjectilePlayer"
             {
                 float4 vertex : POSITION;
                 float2 uv : TEXCOORD0;
+                float3 normal : NORMAL;
             };
 
             struct v2f
             {
                 float2 uv : TEXCOORD0;
                 float4 vertex : SV_POSITION;
+                float fresnel : TEXCOORD1;
             };
 
             float4 _Color;
@@ -36,11 +41,20 @@ Shader "Unlit/ProjectilePlayer"
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 o.uv = v.uv;
+
+                float3 worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
+                float3 worldViewDir = normalize(UnityWorldSpaceViewDir(worldPos));
+                float3 worldNormal = UnityObjectToWorldNormal(v.normal);
+
+                o.fresnel = 1-saturate(dot(worldNormal, worldViewDir));
+
                 return o;
             }
 
-            fixed4 frag (v2f i) : SV_Target
+            fixed4 frag(v2f i) : SV_Target
             {
+                _Color.a = i.fresnel;
+
                 return _Color;
             }
             ENDCG
