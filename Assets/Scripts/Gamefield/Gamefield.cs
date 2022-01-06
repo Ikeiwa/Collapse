@@ -18,8 +18,7 @@ public class Gamefield : MonoBehaviour
     public GameObject PREFAB_Shot_LinearSmall;
     public GameObject PREFAB_Shot_Ally;
 
-    public GameObject anchorBackLeft;
-    public GameObject anchorBackRight;
+    public GameObject anchorBackLeft, anchorBackRight;
 
     public GameObject player;
 
@@ -52,10 +51,9 @@ public class Gamefield : MonoBehaviour
 
     void FixedUpdate()
     {
-        
     }
 
-    //TODO: remove element from list when destroyed
+   // Add list elements
     public void AddEnemy(GameObject prefab, Vector3 position, Quaternion rotation)
     {
         content_enemies.Add(Instantiate(prefab, position, rotation, transform));
@@ -74,7 +72,28 @@ public class Gamefield : MonoBehaviour
     }
     public void AddObstacle(float position, float time = 5)
     {
-        content_obstacles.Add(LevelManager.instance.SpawnObstacleRandom(position,time).gameObject);
+        content_obstacles.Add(LevelManager.instance.SpawnObstacleRandom(position, time).gameObject);
+    }
+    // Remove list elements
+    public void RemoveEnemy(GameObject g)
+    {
+        content_enemies.Remove(g);
+    }
+    public void RemoveProjectile(GameObject g)
+    {
+        content_projectiles.Remove(g);
+    }
+    public void RemovePowerup(GameObject g)
+    {
+        content_powerups.Remove(g);
+    }
+    public void RemoveProjectileAlly(GameObject g)
+    {
+        content_projectilesAlly.Remove(g);
+    }
+    public void RemoveObstacle(GameObject g)
+    {
+        content_obstacles.Remove(g);
     }
 
 

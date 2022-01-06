@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestEnemyBehavior : MonoBehaviour
+public class TestEnemy : AbstractEnemy
 {
     /// <summary>
     /// True if this test enemy is going left
     /// </summary>
     private bool left = false;
-    private Gamefield gf = Gamefield.instance;
+    
     private int frameloop = 0;
 
     void Start()

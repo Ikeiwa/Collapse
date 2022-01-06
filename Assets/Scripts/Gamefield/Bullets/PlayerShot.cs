@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerShot : MonoBehaviour
+public class PlayerShot : AbstractPlayerShot
 {
-    private Gamefield gf = Gamefield.instance;
+    
     private InterpolatedTransform interpolatedTransform;
 
     void Awake()
@@ -16,12 +16,9 @@ public class PlayerShot : MonoBehaviour
     {
         transform.Translate(Vector3.forward * 4.5f);
         if (gf.IsOOB(transform))
-            Destroy(gameObject);
+            Kill();
 
         interpolatedTransform.LateFixedUpdate();
     }
-    void OnTriggerEnter(Collider collision)
-    {
-        Debug.Log("Player shot collision : " + collision.gameObject.tag);
-    }
+    
 }

@@ -2,20 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LinearShot : MonoBehaviour
+public class LinearShot : AbstractBullet
 {
-
-    private Gamefield gf = Gamefield.instance;
 
     void FixedUpdate()
     {
         transform.Translate(Vector3.forward * 0.6f);
         if (gf.IsOOB(transform))
-            Destroy(gameObject);
+            Kill();
     }
-    void OnTriggerEnter(Collider collision)
-    {
-        Debug.Log("Bullet collision : " + collision.gameObject.tag);
-    }
+    
 
 }
