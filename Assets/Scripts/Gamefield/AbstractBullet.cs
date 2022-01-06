@@ -24,8 +24,16 @@ public class AbstractBullet : MonoBehaviour
     /// </summary>
     public void Kill()
     {
+        OnKill();
         gf.RemoveProjectile(this.gameObject);
         Destroy(gameObject);
+    }
+
+    /// <summary>
+    /// Event triggered on entity kill, may be overriten by specific implementations. 
+    /// </summary>
+    public virtual void OnKill()
+    {
     }
 
 }

@@ -15,9 +15,10 @@ public abstract class AbstractEnemy : MonoBehaviour
 
     /// <summary>
     /// Damages this enemy. If it falls below 0hp, kills it.
+    /// This may be overriden by more complex enemies for better damage control.
     /// </summary>
     /// <param name="d">The amount of damage dealt</param>
-    public void Damage(int d)
+    public virtual void Damage(int d)
     {
         health -= d;
         if (health <= 0)
@@ -25,12 +26,20 @@ public abstract class AbstractEnemy : MonoBehaviour
     }
 
     /// <summary>
-    /// Destroys this enemy from the gamefield
+    /// Destroys this enemy from the gamefield.
+    /// Calling this method calls <code>OnKill()</code> on this entity first.
     /// </summary>
     public void Kill()
     {
+        OnKill();
         gf.RemoveEnemy(this.gameObject);
         Destroy(gameObject);
+    }
+
+    /// <summary>
+    /// Event triggered on entity kill, may be overriten by specific implementations. 
+    /// </summary>
+    public virtual void OnKill() { 
     }
 
 }

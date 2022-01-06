@@ -13,4 +13,5 @@ public class LinearShot : AbstractBullet
     }
     
 
+
 }

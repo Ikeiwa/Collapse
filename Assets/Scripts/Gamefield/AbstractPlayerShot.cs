@@ -21,13 +21,21 @@ public class AbstractPlayerShot : MonoBehaviour
     /// </summary>
     public void Kill()
     {
+        OnKill();
         gf.RemoveProjectileAlly(this.gameObject);
         Destroy(gameObject);
     }
 
     /// <returns>The damage this projectile deals on contact</returns>
-    public int GetDamage() {
+    public virtual int GetDamage() {
         return 1;
+    }
+
+    /// <summary>
+    /// Event triggered on entity kill, may be overriten by specific implementations. 
+    /// </summary>
+    public virtual void OnKill()
+    {
     }
 
 }

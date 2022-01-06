@@ -33,7 +33,7 @@ public class Gamefield : MonoBehaviour
     private readonly List<GameObject> content_projectiles = new List<GameObject>(200);
     private readonly List<GameObject> content_powerups = new List<GameObject>(10);
     private readonly List<GameObject> content_projectilesAlly = new List<GameObject>(100);
-    private readonly List<GameObject> content_obstacles = new List<GameObject>(100);
+    private readonly List<GameObject> content_obstacles = new List<GameObject>(30);
 
     void Awake()
     {
@@ -53,7 +53,7 @@ public class Gamefield : MonoBehaviour
     {
     }
 
-   // Add list elements
+    // Add list elements
     public void AddEnemy(GameObject prefab, Vector3 position, Quaternion rotation)
     {
         content_enemies.Add(Instantiate(prefab, position, rotation, transform));
