@@ -10,7 +10,10 @@ public class AbstractPlayerShot : MonoBehaviour
     /// </summary>
     void OnTriggerEnter(Collider collision)
     {
-        Debug.Log("Player shot collision : " + collision.gameObject.layer);
+        AbstractEnemy target = collision.gameObject.GetComponent<AbstractEnemy>();
+        if (target != null) {
+            target.Damage(GetDamage());
+        }
     }
 
     /// <summary>
@@ -20,6 +23,11 @@ public class AbstractPlayerShot : MonoBehaviour
     {
         gf.RemoveProjectileAlly(this.gameObject);
         Destroy(gameObject);
+    }
+
+    /// <returns>The damage this projectile deals on contact</returns>
+    public int GetDamage() {
+        return 1;
     }
 
 }
