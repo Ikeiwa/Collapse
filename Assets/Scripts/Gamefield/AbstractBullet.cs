@@ -30,6 +30,13 @@ public class AbstractBullet : MonoBehaviour
     }
 
     /// <summary>
+    /// Event triggered on entity spawn, using arguments. May be overriten by specific implementations.
+    /// </summary>
+    public virtual void OnSpawn(BulletArguments args)
+    {
+    }
+
+    /// <summary>
     /// Event triggered on entity kill, may be overriten by specific implementations. 
     /// </summary>
     public virtual void OnKill()

@@ -32,6 +32,10 @@ public class TestEnemy : AbstractEnemy
         if (!left && frameloop <= 5)
         {
             gf.AddProjectile(gf.PREFAB_Shot_LinearSmall, transform.position, Quaternion.Euler(new Vector3(180, 0, -90)));
+            
+            if (frameloop == 5 || frameloop == 0)
+                gf.AddProjectile(gf.PREFAB_Shot_LinearSmall, transform.position, Quaternion.Euler(new Vector3(180, 0, -90)), new BulletArguments { speed = 1.2f});
+            
         }
     }
     public override void OnKill() {

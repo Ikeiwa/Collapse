@@ -58,9 +58,16 @@ public class Gamefield : MonoBehaviour
     {
         content_enemies.Add(Instantiate(prefab, position, rotation, transform));
     }
+    public void AddProjectile(GameObject prefab, Vector3 position, Quaternion rotation, BulletArguments args)
+    {
+        GameObject inst = Instantiate(prefab, position, rotation, transform);
+        AbstractBullet bullet = inst.GetComponent<AbstractBullet>();
+        if (bullet != null) bullet.OnSpawn(args);
+        content_projectiles.Add(inst);
+    }
     public void AddProjectile(GameObject prefab, Vector3 position, Quaternion rotation)
     {
-        content_projectiles.Add(Instantiate(prefab, position, rotation, transform));
+        AddProjectile(prefab, position, rotation, BulletArguments.NONE);
     }
     public void AddPowerup(GameObject prefab, Vector3 position, Quaternion rotation)
     {
