@@ -17,7 +17,7 @@ public class Gamefield : MonoBehaviour
 
     public GameObject PREFAB_Shot_LinearSmall, PREFAB_Shot_Walling;
     public GameObject PREFAB_Shot_Ally;
-    public GameObject PREFAB_Powerup_Shield;
+    public GameObject PREFAB_Powerup_Shield, PREFAB_Powerup_Bomb, PREFAB_Powerup_Jump, PREFAB_Powerup_Power;
 
     public GameObject anchorBackLeft, anchorBackRight;
 

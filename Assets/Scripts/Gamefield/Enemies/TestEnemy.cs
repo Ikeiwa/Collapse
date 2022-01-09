@@ -37,7 +37,7 @@ public class TestEnemy : AbstractEnemy
                 gf.AddProjectile(gf.PREFAB_Shot_LinearSmall, transform.position, AbstractBullet.QUATERNION_DOWN, new BulletArguments { speed = 1.2f });
 
             if (frameloop == 3 )
-                gf.AddPowerup(gf.PREFAB_Powerup_Shield, transform.position);
+                gf.AddPowerup(gf.PREFAB_Powerup_Jump, transform.position);
 
         }
     }
