@@ -60,3 +60,6 @@ crashlytics-build.properties
 
 /UserSettings
 /.vsconfig
+
+Assets/CYKOui.meta
+Assets/CYKOui/*
