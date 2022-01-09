@@ -19,7 +19,7 @@ public class TestEnemy : AbstractEnemy
     void FixedUpdate()
     {
         frameloop++;
-        if (frameloop >= 35)
+        if (frameloop >= 100)
             frameloop = 0;
 
         float xpos = gameObject.transform.position.x;
@@ -31,10 +31,10 @@ public class TestEnemy : AbstractEnemy
 
         if (!left && frameloop <= 5)
         {
-            gf.AddProjectile(gf.PREFAB_Shot_LinearSmall, transform.position, Quaternion.Euler(new Vector3(180, 0, -90)));
+            gf.AddProjectile(gf.PREFAB_Shot_LinearSmall, transform.position, AbstractBullet.QUATERNION_DOWN);
 
             if (frameloop == 5 || frameloop == 0)
-                gf.AddProjectile(gf.PREFAB_Shot_LinearSmall, transform.position, Quaternion.Euler(new Vector3(180, 0, -90)), new BulletArguments { speed = 1.2f });
+                gf.AddProjectile(gf.PREFAB_Shot_LinearSmall, transform.position, AbstractBullet.QUATERNION_DOWN, new BulletArguments { speed = 1.2f });
 
             if (frameloop == 3 )
                 gf.AddPowerup(gf.PREFAB_Powerup_Shield, transform.position);
