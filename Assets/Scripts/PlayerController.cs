@@ -15,7 +15,6 @@ public class PlayerController : MonoBehaviour
 {
     public GameObject dashTrail;
     public ParticleSystem jumpSmoke;
-    
 
     public float maxSpeed = 5;
     public float accel = 10;
@@ -25,7 +24,7 @@ public class PlayerController : MonoBehaviour
     public float dashDistance = 2;
     public float focusSpeedFactor = 0.25f;
     public float fireRate = 0.1f;
-
+    public int power = 0;
     public float velocity { get; private set; }
     public float position { get; private set; }
 
@@ -56,13 +55,24 @@ public class PlayerController : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
+    public void setPower(int power)
+    {
+        power = Mathf.Clamp(power, 0, 100);
+        this.power = power;
+        InGameUIManager pointer = InGameUIManager.instance;
+        if (pointer != null)
+        {
+            pointer.SetPower(power);
+        }
+    }
+
     public void ObtainPowerup(PowerUp newPowerUp)
     {
         if (powerUp == PowerUp.None)
         {
             if (newPowerUp == PowerUp.Shield)
             {
-                if(!shielded)
+                if (!shielded)
                     SetShieldState(true);
                 return;
             }
@@ -116,7 +126,7 @@ public class PlayerController : MonoBehaviour
 
         focused = Input.GetButton("Focus");
 
-        if(Input.GetKeyDown(KeyCode.Keypad1))
+        if (Input.GetKeyDown(KeyCode.Keypad1))
             ObtainPowerup(PowerUp.Jump);
 
         if (Input.GetKeyDown(KeyCode.Keypad2))
@@ -130,7 +140,7 @@ public class PlayerController : MonoBehaviour
         float playerSpeed = maxSpeed * (focused ? focusSpeedFactor : 1);
 
         velocity += -velocity * friction * Time.fixedDeltaTime;
-        velocity += move* Time.fixedDeltaTime* accel;
+        velocity += move * Time.fixedDeltaTime * accel;
         velocity = Mathf.Clamp(velocity, -playerSpeed, playerSpeed);
 
         float dashOffset = 0;
@@ -154,7 +164,7 @@ public class PlayerController : MonoBehaviour
 
         float newX = Mathf.Clamp(position + velocity * Time.fixedDeltaTime + dashOffset, -maxDistance, maxDistance);
         position = newX;
-        transform.position = new Vector3(position, Mathf.Sin(jump*Mathf.PI)*8, 0);
+        transform.position = new Vector3(position, Mathf.Sin(jump * Mathf.PI) * 8, 0);
         transform.localEulerAngles = new Vector3(0, 0, -velocity * 0.5f);
 
         if (dashTimer > 0)
@@ -210,9 +220,9 @@ public class PlayerController : MonoBehaviour
         if (!hasShield)
         {
             LevelManager.instance.SetGameSpeed(0.05f);
-            LevelManager.instance.SetGameSpeed(1,2, CurveLibrary.easeOut);
+            LevelManager.instance.SetGameSpeed(1, 2, CurveLibrary.easeOut);
             PostProcessController.instance.SetChromaticAberation(1);
-            PostProcessController.instance.SetChromaticAberation(0,2, CurveLibrary.easeOut);
+            PostProcessController.instance.SetChromaticAberation(0, 2, CurveLibrary.easeOut);
             PostProcessController.instance.SetLensDistortion(-50);
             PostProcessController.instance.SetLensDistortion(0, 2, CurveLibrary.easeOut);
         }

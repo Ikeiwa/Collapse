@@ -8,5 +8,6 @@ public class PowerupShield : AbstractPowerup
     {
         Debug.Log("Collected Shield powerup");
         gf.player.GetComponent<PlayerController>().ObtainPowerup(PowerUp.Shield);
+        gf.player.GetComponent<PlayerController>().setPower(gf.player.GetComponent<PlayerController>().power + 10);
     }
 }
