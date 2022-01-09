@@ -411,6 +411,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PowerSlider: {fileID: 1742392714}
   PowerupUI: {fileID: 1354499332}
+  PowerupIcon_Shield: {fileID: 2800000, guid: c19378424f153d745a0f3d698a968692, type: 3}
+  PowerupIcon_Bomb: {fileID: 2800000, guid: 3090a1490e9a73c46b6c7ed12dd1a9af, type: 3}
+  PowerupIcon_Jump: {fileID: 2800000, guid: 7643d44ed9f35e047a99f8aab51c860f, type: 3}
 --- !u!1 &71058653
 GameObject:
   m_ObjectHideFlags: 0
@@ -6169,6 +6172,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 54208899}
     m_Modifications:
+    - target: {fileID: 4279018024885738106, guid: 32b588eb4ae9a27449f1f325beaeefa5, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4279018024885738106, guid: 32b588eb4ae9a27449f1f325beaeefa5, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4330974705379211681, guid: 32b588eb4ae9a27449f1f325beaeefa5, type: 3}
       propertyPath: m_Controller
       value: 
@@ -6263,6 +6274,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4330974705379211687, guid: 32b588eb4ae9a27449f1f325beaeefa5, type: 3}
       propertyPath: m_PixelsPerUnitMultiplier
+      value: 3.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5817423212917592411, guid: 32b588eb4ae9a27449f1f325beaeefa5, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 5817423212917592411, guid: 32b588eb4ae9a27449f1f325beaeefa5, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 5817423212917592411, guid: 32b588eb4ae9a27449f1f325beaeefa5, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5817423212917592411, guid: 32b588eb4ae9a27449f1f325beaeefa5, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5817423212917592411, guid: 32b588eb4ae9a27449f1f325beaeefa5, type: 3}
+      propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

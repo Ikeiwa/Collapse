@@ -11,6 +11,8 @@ public class InGameUIManager : MonoBehaviour
     public RectTransform PowerSlider;
     public RectTransform PowerupUI;
 
+    public Sprite PowerupIcon_Shield, PowerupIcon_Bomb, PowerupIcon_Jump;
+
     private void Awake()
     {
         instance = this;
@@ -19,20 +21,28 @@ public class InGameUIManager : MonoBehaviour
     public void SetPowerup(PowerUp type)
     {
         Debug.Log("Setting UI powerup to : " + type);
+        RectTransform icontr = (RectTransform) PowerupUI.GetChild(0);
         switch (type)
         {
             default:
             case PowerUp.None:
-
+                icontr.GetComponent<Image>().enabled = false;
+                PowerupUI.GetComponent<Animator>().SetBool("ON",false);
                 break;
             case PowerUp.Jump:
-
+                icontr.GetComponent<Image>().sprite = PowerupIcon_Jump;
+                icontr.GetComponent<Image>().enabled = true;
+                PowerupUI.GetComponent<Animator>().SetBool("ON", true);
                 break;
             case PowerUp.Bomb:
-
+                icontr.GetComponent<Image>().sprite = PowerupIcon_Bomb;
+                icontr.GetComponent<Image>().enabled = true;
+                PowerupUI.GetComponent<Animator>().SetBool("ON", true);
                 break;
             case PowerUp.Shield:
-
+                icontr.GetComponent<Image>().sprite = PowerupIcon_Shield;
+                icontr.GetComponent<Image>().enabled = true;
+                PowerupUI.GetComponent<Animator>().SetBool("ON", true);
                 break;
         }
     }

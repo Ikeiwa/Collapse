@@ -68,6 +68,13 @@ public class PlayerController : MonoBehaviour
 
     public void ObtainPowerup(PowerUp newPowerUp)
     {
+        InGameUIManager uipointer = InGameUIManager.instance;
+        if (uipointer != null)
+        {
+            // TODO: don't call this if the powerup is consumed immediately instead of being stored
+            uipointer.SetPowerup(newPowerUp);
+        }
+
         if (powerUp == PowerUp.None)
         {
             if (newPowerUp == PowerUp.Shield)
