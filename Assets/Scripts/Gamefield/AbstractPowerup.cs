@@ -21,11 +21,9 @@ public class AbstractPowerup : MonoBehaviour
         else
         {
             float playerX = gf.player.transform.position.x;
-            Debug.Log("Player X : " + playerX + " / powerup Z : " + transform.position.z + " / distance : " + Mathf.Abs(playerX - transform.position.x));
             if (!homingTrigger && transform.position.z <= homingrange && Mathf.Abs(playerX - transform.position.x) < homingrange)
             {
                 homingTrigger = true;
-                Debug.Log("AYAYA");
             }
             if (homingTrigger)
             {
