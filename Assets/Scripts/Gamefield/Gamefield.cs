@@ -15,7 +15,7 @@ public class Gamefield : MonoBehaviour
 
     public GameObject PREFAB_Enemy_Basic;
 
-    public GameObject PREFAB_Shot_LinearSmall;
+    public GameObject PREFAB_Shot_LinearSmall, PREFAB_Shot_Walling;
     public GameObject PREFAB_Shot_Ally;
 
     public GameObject anchorBackLeft, anchorBackRight;

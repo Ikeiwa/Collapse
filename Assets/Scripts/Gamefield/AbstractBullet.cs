@@ -9,6 +9,7 @@ public class AbstractBullet : MonoBehaviour
 {
 
     protected Gamefield gf = Gamefield.instance;
+    public static readonly Quaternion QUATERNION_DOWN = Quaternion.Euler(new Vector3(180, 0, -90));
 
     /// <summary>
     /// Event triggered when this bullet collides with something. 

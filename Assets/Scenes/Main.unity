@@ -6556,6 +6556,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PREFAB_Enemy_Basic: {fileID: 8813779941746551171, guid: 4edc08d4657bf9042803df61910aa794, type: 3}
   PREFAB_Shot_LinearSmall: {fileID: 1444330665011068520, guid: 76f47d32f33ed424688a8b6d85bb0abe, type: 3}
+  PREFAB_Shot_Walling: {fileID: 9150357275563358300, guid: a9d3e84da77b8be4e9e7f3cd163732ef, type: 3}
   PREFAB_Shot_Ally: {fileID: 9205238644211774724, guid: 759c929276a2f0747ba90a33df979b6f, type: 3}
   anchorBackLeft: {fileID: 1191181163}
   anchorBackRight: {fileID: 4982923}

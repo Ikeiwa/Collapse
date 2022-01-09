@@ -40,12 +40,13 @@ public class TestEnemy : AbstractEnemy
     }
     public override void OnKill() {
         Quaternion deathangle = Quaternion.LookRotation(gf.player.transform.position - transform.position, Vector3.up);
-        gf.AddProjectile(gf.PREFAB_Shot_LinearSmall, transform.position, deathangle);
+        /*gf.AddProjectile(gf.PREFAB_Shot_LinearSmall, transform.position, deathangle);
         gf.AddProjectile(gf.PREFAB_Shot_LinearSmall, transform.position + new Vector3(0, 0, -0.5f), deathangle);
         gf.AddProjectile(gf.PREFAB_Shot_LinearSmall, transform.position + new Vector3(0, 0, -1f), deathangle);
         gf.AddProjectile(gf.PREFAB_Shot_LinearSmall, transform.position + new Vector3(0, 0, -1.5f), deathangle);
         gf.AddProjectile(gf.PREFAB_Shot_LinearSmall, transform.position + new Vector3(0, 0, -2f), deathangle);
         gf.AddProjectile(gf.PREFAB_Shot_LinearSmall, transform.position + new Vector3(1.5f, 0, -0.5f), deathangle);
-        gf.AddProjectile(gf.PREFAB_Shot_LinearSmall, transform.position + new Vector3(-1.5f, 0, -0.5f), deathangle);
+        gf.AddProjectile(gf.PREFAB_Shot_LinearSmall, transform.position + new Vector3(-1.5f, 0, -0.5f), deathangle);*/
+        gf.AddProjectile(gf.PREFAB_Shot_Walling, transform.position, deathangle);
     }
 }
