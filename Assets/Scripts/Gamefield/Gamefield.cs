@@ -17,6 +17,7 @@ public class Gamefield : MonoBehaviour
 
     public GameObject PREFAB_Shot_LinearSmall, PREFAB_Shot_Walling;
     public GameObject PREFAB_Shot_Ally;
+    public GameObject PREFAB_Powerup_Shield;
 
     public GameObject anchorBackLeft, anchorBackRight;
 
@@ -69,9 +70,9 @@ public class Gamefield : MonoBehaviour
     {
         AddProjectile(prefab, position, rotation, BulletArguments.NONE);
     }
-    public void AddPowerup(GameObject prefab, Vector3 position, Quaternion rotation)
+    public void AddPowerup(GameObject prefab, Vector3 position)
     {
-        content_powerups.Add(Instantiate(prefab, position, rotation, transform));
+        content_powerups.Add(Instantiate(prefab, position, AbstractPowerup.QUATERNION_DOWN, transform));
     }
     public void AddProjectileAlly(GameObject prefab, Vector3 position, Quaternion rotation)
     {
