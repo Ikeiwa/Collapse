@@ -105,7 +105,7 @@ public class Gamefield : MonoBehaviour
     }
 
 
-    private static readonly float OOBthreshold = 1.1f;
+    private static readonly float OOBthreshold = 3.5f;
 
     /// <summary>
     /// Predicate that tests if the bounds of an object are within the game field.
@@ -116,6 +116,6 @@ public class Gamefield : MonoBehaviour
     public bool IsOOB(Transform t)
     {
         return t.position.x < xmin - OOBthreshold || t.position.x > xmax + OOBthreshold
-            || t.position.z < zmin - OOBthreshold || t.position.z > zmax + OOBthreshold;
+            || t.position.z < zmin - OOBthreshold * 2 || t.position.z > zmax + OOBthreshold * 2;
     }
 }
