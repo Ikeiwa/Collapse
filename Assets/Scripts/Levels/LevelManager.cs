@@ -153,10 +153,10 @@ public class LevelManager : MonoBehaviour
         curveChangeTimer = 100;
         yield return new WaitForSeconds(2f);
 
-        if (currentLevelIndex >= levels.Length - 1)
+        if (currentLevelIndex <= levels.Length - 2)
             LoadLevel(currentLevelIndex + 1);
         else
-            Debug.Log("Warning : trying to load in level " + (currentLevelIndex + 1) + ", skipping call (out of bounds, max = " + (levels.Length - 1));
+            Debug.Log("Warning : trying to load in level " + (currentLevelIndex + 1) + ", skipping call (out of bounds, max = " + (levels.Length - 1) + ")");
     }
 
     /// <summary>

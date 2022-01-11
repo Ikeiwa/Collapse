@@ -6,6 +6,6 @@ public class Level4 : LevelContent
 {
     public Level4()
     {
-
+        content.Add(new NextLevelTrigger(10f));
     }
 }
