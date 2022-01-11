@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: Singularity
   distance: 0
-  duration: 10
   music: {fileID: 0}
   skyColor: {r: 0, g: 0, b: 0, a: 0}
   maxCurve: {x: 0, y: 0, z: 0}
@@ -22,4 +21,4 @@ MonoBehaviour:
   tiles: []
   obstacles: []
   obstaclesChance: []
-  enemyChance: []
+  contentID: 6

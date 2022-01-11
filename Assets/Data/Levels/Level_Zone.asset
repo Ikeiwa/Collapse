@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: Zone
   distance: 200
-  duration: 10
   music: {fileID: 8300000, guid: 5da627c952e51ad4a99297a701afab79, type: 3}
   skyColor: {r: 0, g: 0, b: 0, a: 0}
   maxCurve: {x: 0, y: 0, z: 0}
@@ -23,4 +22,4 @@ MonoBehaviour:
   - {fileID: 47104625362522639, guid: b9fe782fd8cfcf44eab8fd1f2481a644, type: 3}
   obstacles: []
   obstaclesChance: []
-  enemyChance: []
+  contentID: 5

@@ -97,10 +97,10 @@ public class LevelManager : MonoBehaviour
 
         SpawnTile(true);
 
-        StartCoroutine(LevelTimer());
+        StartCoroutine(LoadLevelAnim());
     }
 
-    IEnumerator LevelTimer()
+    private IEnumerator LoadLevelAnim()
     {
         yield return new WaitForSeconds(3);
         levelIntroText.DisplayText(currentLevel.displayName, currentLevel.distance);
@@ -126,9 +126,9 @@ public class LevelManager : MonoBehaviour
         musicPlayer.Play();
 
         Debug.Log("Level " + (currentLevelIndex+1) +" Started !");
+    }
 
-        yield return new WaitForSeconds(currentLevel.duration);
-
+    private IEnumerator EndLevelAnim() {
         StartCoroutine(UtilityCoroutines.FadeVolume(musicPlayer, 0, 2, true));
 
         mainCamera.SetCombatView(false);
@@ -136,7 +136,18 @@ public class LevelManager : MonoBehaviour
         curveChangeTimer = 100;
         yield return new WaitForSeconds(2f);
 
-        LoadLevel(currentLevelIndex+1);
+        if (currentLevelIndex >= levels.Length - 1)
+            LoadLevel(currentLevelIndex + 1);
+        else
+            Debug.Log("Warning : trying to load in level " + (currentLevelIndex+1) + ", skipping call (out of bounds, max = " + (levels.Length - 1));
+    }
+
+    /// <summary>
+    /// Loads the next level, including animations. <i>Not an influka reference.</i><br/>
+    /// If called on the last level, this only does the level ending animation and doesn't load an inexistant stage.
+    /// </summary>
+    public void NextLevel() {
+        StartCoroutine(EndLevelAnim());
     }
 
     public void SpawnTile(bool start = false)

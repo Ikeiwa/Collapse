@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: Plains
   distance: 1000
-  duration: 10
   music: {fileID: 8300000, guid: 0b16035a7143cfe46934f5f605bd6545, type: 3}
   skyColor: {r: 0.34827453, g: 0.83, b: 0.83, a: 0}
   maxCurve: {x: 1, y: 0.5, z: 0}
@@ -24,4 +23,4 @@ MonoBehaviour:
   obstacles:
   - {fileID: 4662444518709677401, guid: 6e21c37c01161d0458a24d739c497930, type: 3}
   obstaclesChance: []
-  enemyChance: []
+  contentID: 1

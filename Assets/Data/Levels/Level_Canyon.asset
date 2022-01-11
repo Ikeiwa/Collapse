@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: Canyon
   distance: 800
-  duration: 10
   music: {fileID: 8300000, guid: 737f820aacfc5ba418ddb6eada3979e1, type: 3}
   skyColor: {r: 0.8773585, g: 0.60689753, b: 0, a: 0}
   maxCurve: {x: 3, y: 0, z: 0}
@@ -24,4 +23,4 @@ MonoBehaviour:
   obstacles:
   - {fileID: 1301663821623109222, guid: 89cabfb1c414b244b9b8ad5e7638403e, type: 3}
   obstaclesChance: []
-  enemyChance: []
+  contentID: 2

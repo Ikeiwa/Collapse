@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: City
   distance: 400
-  duration: 10
   music: {fileID: 8300000, guid: 1177ba81e5bed2f46886633a41bbf800, type: 3}
   skyColor: {r: 0.2886721, g: 0, b: 0.6415094, a: 0}
   maxCurve: {x: 0, y: 0, z: 0}
@@ -22,6 +21,7 @@ MonoBehaviour:
   tiles:
   - {fileID: 4315065528995779210, guid: 3bf3180855519434d91136df815c00bb, type: 3}
   - {fileID: -3729835053101608524, guid: 940e313895bed704c9a2279e78027fda, type: 3}
-  obstacles: []
+  obstacles:
+  - {fileID: 0}
   obstaclesChance: []
-  enemyChance: []
+  contentID: 4

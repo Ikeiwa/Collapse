@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum LevelID
+{
+    Plains = 1, Canyon = 2, Tunnel = 3, City = 4, Zone = 5, Singularity = 6
+}
+
 [CreateAssetMenu(fileName = "Level", menuName = "Collapse/Level", order = 1)]
 public class LevelData : ScriptableObject
 {
@@ -14,10 +19,6 @@ public class LevelData : ScriptableObject
     /// </summary>
     public int distance = 9999;
     /// <summary>
-    /// Duration of the level, in seconds
-    /// </summary>
-    public float duration = 120;
-    /// <summary>
     /// Background track playing in the level
     /// </summary>
     public AudioClip music;
@@ -29,6 +30,7 @@ public class LevelData : ScriptableObject
     /// Maximum level curvature. Only used for display purposes.
     /// </summary>
     public Vector3 maxCurve;
+
     [Space]
     /// <summary>
     /// Starting transition tile with the previous level. Used for graphical purposes only
@@ -39,6 +41,7 @@ public class LevelData : ScriptableObject
     /// </summary>
     public LevelTile[] tiles;
 
+    [Space]
     /// <summary>
     /// List of obstacles that can spawn on this level when an obstacle does
     /// </summary>
@@ -47,6 +50,26 @@ public class LevelData : ScriptableObject
     /// Relative weight probability that obstacles in the <b>Obstacles</b> list spawn when summoning a random obstacle
     /// </summary>
     public float[] obstaclesChance;
+
+    [Space]
+    public LevelID contentID;
+    private LevelContent content = null;
+
+    public LevelContent GetContent()
+    {
+        if (content != null)
+            return content;
+        switch (contentID)
+        {
+            case LevelID.Plains: content = new Level1(); break;
+            case LevelID.Canyon: content = new Level2(); break;
+            case LevelID.Tunnel: content = new Level3(); break;
+            case LevelID.City: content = new Level4(); break;
+            case LevelID.Zone: content = new Level5(); break;
+            case LevelID.Singularity: content = new Level6(); break;
+        }
+        return content;
+    }
 
     /// <returns>a new curvature value for this level, computed randomly and independantly  in the level range</returns>
     public Vector3 GetRandomCurve()

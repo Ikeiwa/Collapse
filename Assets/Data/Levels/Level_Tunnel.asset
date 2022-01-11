@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: Tunnel
   distance: 600
-  duration: 10
   music: {fileID: 8300000, guid: 6b0fc6ddcbef5ce429586287729f609b, type: 3}
   skyColor: {r: 0, g: 0, b: 0, a: 0}
   maxCurve: {x: 2, y: 0, z: 0}
@@ -24,4 +23,4 @@ MonoBehaviour:
   - {fileID: 8134839989832385963, guid: d8b385f9724ca6748847f1824a96e675, type: 3}
   obstacles: []
   obstaclesChance: []
-  enemyChance: []
+  contentID: 3

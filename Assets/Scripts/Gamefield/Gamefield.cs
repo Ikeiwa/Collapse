@@ -47,7 +47,6 @@ public class Gamefield : MonoBehaviour
 
     void Start()
     {
-        AddEnemy(PREFAB_Enemy_Basic, anchorBackLeft.transform.position, Quaternion.identity);
     }
 
     void FixedUpdate()
