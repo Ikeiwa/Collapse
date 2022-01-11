@@ -4,6 +4,7 @@ using UnityEngine;
 
 public abstract class LevelContent
 {
+    // TODO: use a linkedlist here, perf gains would be massive
     public List<AbstractContent> content = new List<AbstractContent>(128);
 
     /// <summary>
@@ -11,8 +12,14 @@ public abstract class LevelContent
     /// </summary>
     /// <param name="time">The current time in the level, in seconds.</param>
     public void Trigger(float time) {
-        Debug.Log("Levelcontent trigger for time : " + time);
-        // TODO : this
+
+        if (content.Count == 0) return;
+
+        if (content[0].spawnTime <= time) {
+            content[0].OnTick();
+            content.RemoveAt(0);
+        }
+    
     }
 
 }

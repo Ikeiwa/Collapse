@@ -26,7 +26,12 @@ public class LevelManager : MonoBehaviour
     public PlayerController player;
     public CameraController mainCamera;
 
-    private bool gameStarted = false;
+    private bool gameStarted = false, levelcontentRunning = false;
+
+    /// <summary>
+    /// Time in the level's perspective. Starts at 0 when a level starts, and increments like any timer.
+    /// </summary>
+    private float LocaleLevelTime = 0f;
 
     private Material skyMaterial;
     private LevelCurve levelCurve;
@@ -35,11 +40,11 @@ public class LevelManager : MonoBehaviour
     private float curveChangeTimer = 10;
 
     private static readonly int ColorHorizon = Shader.PropertyToID("_ColorHorizon");
-    private static readonly float transitionDuration = 5;
+    private static readonly float transitionDuration = 3.5f;
 
     private void Awake()
     {
-        if(instance != null)
+        if (instance != null)
             Destroy(gameObject);
 
         instance = this;
@@ -56,7 +61,6 @@ public class LevelManager : MonoBehaviour
         StartGame();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (gameStarted)
@@ -72,12 +76,23 @@ public class LevelManager : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.L))
             {
-                SpawnObstacle(currentLevel.obstacles[0],Random.Range(0,4),2);
+                SpawnObstacle(currentLevel.obstacles[0], Random.Range(0, 4), 2);
             }
         }
 
         if (tilesRoot.childCount < 4)
             SpawnTile();
+    }
+
+    private void FixedUpdate()
+    {
+        if (levelcontentRunning)
+            LocaleLevelTime += Time.fixedDeltaTime;
+        else 
+            LocaleLevelTime = 0f;
+        if (levelcontentRunning) {
+            currentLevel.GetContent().Trigger(LocaleLevelTime);
+        }
     }
 
     public void StartGame()
@@ -91,7 +106,7 @@ public class LevelManager : MonoBehaviour
     {
         currentLevelIndex = level;
         currentLevel = levels[currentLevelIndex];
-        curveChangeTimer = transitionDuration+5;
+        curveChangeTimer = transitionDuration + 5;
         levelCurve.curveTarget = Vector3.zero;
         musicPlayer.clip = currentLevel.music;
 
@@ -125,10 +140,12 @@ public class LevelManager : MonoBehaviour
         musicPlayer.volume = 1;
         musicPlayer.Play();
 
-        Debug.Log("Level " + (currentLevelIndex+1) +" Started !");
+        Debug.Log("Level " + (currentLevelIndex + 1) + " Started !");
+        levelcontentRunning = true;
     }
 
-    private IEnumerator EndLevelAnim() {
+    private IEnumerator EndLevelAnim()
+    {
         StartCoroutine(UtilityCoroutines.FadeVolume(musicPlayer, 0, 2, true));
 
         mainCamera.SetCombatView(false);
@@ -139,14 +156,16 @@ public class LevelManager : MonoBehaviour
         if (currentLevelIndex >= levels.Length - 1)
             LoadLevel(currentLevelIndex + 1);
         else
-            Debug.Log("Warning : trying to load in level " + (currentLevelIndex+1) + ", skipping call (out of bounds, max = " + (levels.Length - 1));
+            Debug.Log("Warning : trying to load in level " + (currentLevelIndex + 1) + ", skipping call (out of bounds, max = " + (levels.Length - 1));
     }
 
     /// <summary>
     /// Loads the next level, including animations. <i>Not an influka reference.</i><br/>
     /// If called on the last level, this only does the level ending animation and doesn't load an inexistant stage.
     /// </summary>
-    public void NextLevel() {
+    public void NextLevel()
+    {
+        levelcontentRunning = false;
         StartCoroutine(EndLevelAnim());
     }
 
@@ -156,7 +175,7 @@ public class LevelManager : MonoBehaviour
 
         LevelTile tile = Instantiate(tilePrefab, tilesRoot);
         tile.levelManager = this;
-        if(lastTile)
+        if (lastTile)
             tile.transform.localPosition = lastTile.transform.localPosition + new Vector3(0, 0, 500);
         lastTile = tile;
     }
@@ -165,7 +184,7 @@ public class LevelManager : MonoBehaviour
     {
         ObstacleBase obstacleInst = Instantiate(obstacle, new Vector3(0, 0, 10000), Quaternion.identity, lanesRoot);
         obstacleInst.time = time;
-        obstacleInst.position = Mathf.Lerp(leftLane.localPosition.x, rightLane.localPosition.x, position/3.0f);
+        obstacleInst.position = Mathf.Lerp(leftLane.localPosition.x, rightLane.localPosition.x, position / 3.0f);
         return obstacleInst;
     }
 
@@ -182,14 +201,14 @@ public class LevelManager : MonoBehaviour
     {
         Time.timeScale = speed;
         AudioEffectsController.instance.SetAudioSpeed(speed);
-        AudioEffectsController.instance.SetLowPassEffect(1-speed);
+        AudioEffectsController.instance.SetLowPassEffect(1 - speed);
     }
 
     public void SetGameSpeed(float speed, float duration, AnimationCurve curve = null)
     {
         StartCoroutine(UtilityCoroutines.FadeTimeSpeed(speed, duration, curve));
         AudioEffectsController.instance.SetAudioSpeed(speed, duration, curve);
-        AudioEffectsController.instance.SetLowPassEffect(1- speed, duration, curve);
+        AudioEffectsController.instance.SetLowPassEffect(1 - speed, duration, curve);
     }
 
     public void Death()
