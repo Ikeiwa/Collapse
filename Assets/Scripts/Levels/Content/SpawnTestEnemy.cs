@@ -8,6 +8,9 @@ public class SpawnTestEnemy : AbstractContent
 
     public override void OnTick()
     {
-        Gamefield.instance.AddEnemy(Gamefield.instance.PREFAB_Enemy_Basic, Gamefield.instance.anchorBackLeft.transform.position, Quaternion.identity);
+        Gamefield.instance.AddEnemy(
+            Gamefield.instance.PREFAB_Enemy_Basic, 
+            Gamefield.instance.anchorBackLeft.transform.position + new Vector3(0,30,0), 
+            Quaternion.identity);
     }
 }

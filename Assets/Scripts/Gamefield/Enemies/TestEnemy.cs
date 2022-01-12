@@ -16,8 +16,10 @@ public class TestEnemy : AbstractEnemy
 
     }
 
-    void FixedUpdate()
+    protected new void FixedUpdate()
     {
+        base.FixedUpdate();
+
         frameloop++;
         if (frameloop >= 100)
             frameloop = 0;
@@ -29,7 +31,7 @@ public class TestEnemy : AbstractEnemy
 
         transform.Translate(new Vector3(left ? -1.9f : 0.45f, 0, 0));
 
-        if (!left && frameloop <= 5)
+        if (Grounded() && !left && frameloop <= 5)
         {
             gf.AddProjectile(gf.PREFAB_Shot_LinearSmall, transform.position, AbstractBullet.QUATERNION_DOWN);
 
