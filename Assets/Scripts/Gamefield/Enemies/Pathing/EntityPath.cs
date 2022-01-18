@@ -18,6 +18,10 @@ public class EntityPath
     {
         this.anchor = anchor;
     }
+    public EntityPath()
+    {
+        this.anchor = Vector3.zero;
+    }
 
     /// <summary>
     /// Chain tails a pathing location to this path

@@ -26,24 +26,28 @@ public class PathingLocation
         this.parent = parent;
     }
 
+    private bool bufferset_locale = false;
     private Vector3 posBufferLocale;
     /// <returns>The position of this location in vec3 space. This method returns an immutable buffered response.</returns>
     public Vector3 GetPositionLocale()
     {
-        if (posBufferLocale != null)
+        if (bufferset_locale)
             return posBufferLocale;
         posBufferLocale = new Vector3(x, 0, z);
+        bufferset_locale = true;
         return posBufferLocale;
     }
 
+    private bool bufferset_global = false;
     private Vector3 posBufferGlobal;
     /// <returns>The position of this location in vec3 global space (relative to the gamefield location, which is world pos if the gamefield is at 0,0,0). 
     /// This method returns an immutable buffered response.</returns>
     public Vector3 GetPositionGlobal()
     {
-        if (posBufferGlobal != null)
+        if (bufferset_global)
             return posBufferGlobal;
         posBufferGlobal = new Vector3(x + parent.anchor.x, parent.anchor.y, z + parent.anchor.z);
+        bufferset_global = true;
         return posBufferGlobal;
     }
 
