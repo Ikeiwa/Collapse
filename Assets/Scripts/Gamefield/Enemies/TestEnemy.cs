@@ -16,7 +16,7 @@ public class TestEnemy : AbstractEnemy
 
     }
 
-    protected new void FixedUpdate()
+    protected override void FixedUpdate()
     {
         base.FixedUpdate();
 
