@@ -99,7 +99,7 @@ public class LevelManager : MonoBehaviour
     {
         gameStarted = true;
         speed = 50;
-        LoadLevel(4);
+        LoadLevel(0);
     }
 
     public void LoadLevel(int level = 0)

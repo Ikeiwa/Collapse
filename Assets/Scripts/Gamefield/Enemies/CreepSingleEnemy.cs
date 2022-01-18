@@ -32,4 +32,9 @@ public class CreepSingleEnemy : PathfindingEnemy
             Despawn();
     }
 
+    public override void OnKill()
+    {
+        gf.AddPowerup(gf.PREFAB_Powerup_Power, transform.position);
+    }
+
 }
