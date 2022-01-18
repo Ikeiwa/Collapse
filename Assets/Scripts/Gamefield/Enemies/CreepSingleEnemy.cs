@@ -27,6 +27,9 @@ public class CreepSingleEnemy : PathfindingEnemy
             Quaternion angle = Quaternion.LookRotation(gf.player.transform.position - transform.position, Vector3.up);
             gf.AddProjectile(gf.PREFAB_Shot_LinearSmall, transform.position, angle, new BulletArguments { speed = 0.9f });
         }
+
+        if (gf.IsOOB(transform))
+            Despawn();
     }
 
 }

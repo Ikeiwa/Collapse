@@ -44,6 +44,15 @@ public abstract class AbstractEnemy : MonoBehaviour
     }
 
     /// <summary>
+    /// Same as OnKill, but does not trigger onKill effect. Just removes this entity from the game.
+    /// </summary>
+    public void Despawn()
+    {
+        gf.RemoveEnemy(this.gameObject);
+        Destroy(gameObject);
+    }
+
+    /// <summary>
     /// Event triggered on entity kill, may be overriten by specific implementations. 
     /// </summary>
     public virtual void OnKill()
