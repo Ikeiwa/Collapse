@@ -193,6 +193,9 @@ public class PlayerController : MonoBehaviour
             nextFire = Time.time + fireRate;
             Gamefield.instance.AddProjectileAlly(Gamefield.instance.PREFAB_Shot_Ally, transform.position + new Vector3(0.35f, 0, 3), Quaternion.identity);
             Gamefield.instance.AddProjectileAlly(Gamefield.instance.PREFAB_Shot_Ally, transform.position + new Vector3(-0.35f, 0, 3), Quaternion.identity);
+
+            Gamefield.instance.AddProjectileAlly(Gamefield.instance.PREFAB_Shot_MissileAlly, transform.position + new Vector3(0.8f, 0, 2.5f), Quaternion.identity);
+            Gamefield.instance.AddProjectileAlly(Gamefield.instance.PREFAB_Shot_MissileAlly, transform.position + new Vector3(-0.8f, 0, 2.5f), Quaternion.identity);
         }
 
         interpolatedTransform.LateFixedUpdate();
