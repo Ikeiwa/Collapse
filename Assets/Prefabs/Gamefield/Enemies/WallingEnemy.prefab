@@ -9,11 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8813779941746551170}
-  - component: {fileID: 4486655268876904003}
   - component: {fileID: -4555180214900107885}
   - component: {fileID: -240618116824507662}
+  - component: {fileID: 8222600556440248875}
   m_Layer: 8
-  m_Name: TestEnemy
+  m_Name: WallingEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34,20 +34,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4486655268876904003
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8813779941746551171}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e37a0ff850892a43a5a3f55256b719f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 20
-  landingtime: 1
 --- !u!54 &-4555180214900107885
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -77,6 +63,20 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.7
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8222600556440248875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8813779941746551171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78d8e98585e5ace4786fcd09f965a5da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 10
+  landingtime: 0.3
 --- !u!1001 &3529240844033134196
 PrefabInstance:
   m_ObjectHideFlags: 0
