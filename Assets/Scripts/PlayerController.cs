@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour
     private bool focused = false;
 
     private float nextFire = 0;
+    private float nextMissile = 1f;
 
     private PowerUp powerUp = PowerUp.None;
     private float jump = 0;
@@ -193,9 +194,13 @@ public class PlayerController : MonoBehaviour
             nextFire = Time.time + fireRate;
             Gamefield.instance.AddProjectileAlly(Gamefield.instance.PREFAB_Shot_Ally, transform.position + new Vector3(0.35f, 0, 3), Quaternion.identity);
             Gamefield.instance.AddProjectileAlly(Gamefield.instance.PREFAB_Shot_Ally, transform.position + new Vector3(-0.35f, 0, 3), Quaternion.identity);
+        }
 
-            Gamefield.instance.AddProjectileAlly(Gamefield.instance.PREFAB_Shot_MissileAlly, transform.position + new Vector3(0.8f, 0, 2.5f), Quaternion.identity);
-            Gamefield.instance.AddProjectileAlly(Gamefield.instance.PREFAB_Shot_MissileAlly, transform.position + new Vector3(-0.8f, 0, 2.5f), Quaternion.identity);
+        if (Input.GetButton("Fire") && Time.time > nextMissile && power >= 1)
+        {
+            nextMissile = Time.time + ((120 - power) / 100);
+            Gamefield.instance.AddProjectileAlly(Gamefield.instance.PREFAB_Shot_MissileAlly, transform.position + new Vector3(1.2f, 0, 1.5f), Quaternion.identity);
+            Gamefield.instance.AddProjectileAlly(Gamefield.instance.PREFAB_Shot_MissileAlly, transform.position + new Vector3(-1.2f, 0, 1.5f), Quaternion.identity);
         }
 
         interpolatedTransform.LateFixedUpdate();

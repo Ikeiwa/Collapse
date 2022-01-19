@@ -24,4 +24,9 @@ public class PlayerMissile : AbstractPlayerShot
         interpolatedTransform.LateFixedUpdate();
     }
 
+    public override int GetDamage()
+    {
+        return 5;
+    }
+
 }
