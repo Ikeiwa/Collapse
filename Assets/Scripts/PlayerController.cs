@@ -198,7 +198,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetButton("Fire") && Time.time > nextMissile && power >= 1)
         {
-            nextMissile = Time.time + ((120 - power) / 100);
+            nextMissile = Time.time + ((float)(120 - power) / 100f);
             Gamefield.instance.AddProjectileAlly(Gamefield.instance.PREFAB_Shot_MissileAlly, transform.position + new Vector3(1.2f, 0, 1.5f), Quaternion.identity);
             Gamefield.instance.AddProjectileAlly(Gamefield.instance.PREFAB_Shot_MissileAlly, transform.position + new Vector3(-1.2f, 0, 1.5f), Quaternion.identity);
         }
