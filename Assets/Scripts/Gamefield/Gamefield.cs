@@ -13,14 +13,13 @@ public class Gamefield : MonoBehaviour
     /// </summary>
     public static Gamefield instance;
 
-    public GameObject PREFAB_Enemy_Basic, PREFAB_Enemy_CreepSingle;
-
+    public GameObject PREFAB_Enemy_Basic, PREFAB_Enemy_CreepSingle, PREFAB_Enemy_WallingEnemy;
     public GameObject PREFAB_Shot_LinearSmall, PREFAB_Shot_Walling;
     public GameObject PREFAB_Shot_Ally, PREFAB_Shot_MissileAlly;
     public GameObject PREFAB_Powerup_Shield, PREFAB_Powerup_Bomb, PREFAB_Powerup_Jump, PREFAB_Powerup_Power;
-
+    
     public GameObject anchorBackLeft, anchorBackRight;
-
+    [Space]
     public GameObject player;
 
     /// <summary>

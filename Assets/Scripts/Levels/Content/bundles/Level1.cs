@@ -64,9 +64,20 @@ public class Level1 : LevelContent
         content.Add(new SpawnCreepRight(25.5f));
         content.Add(new SpawnCreepLeft(26f));
         content.Add(new SpawnCreepRight(26f));
-
+        // Wallers
+        content.Add(new SpawnWallier(28f, -20f));
+        content.Add(new SpawnWallier(28f, 20f));
+        content.Add(new SpawnCreepLeft(29.5f));
+        content.Add(new SpawnCreepRight(29.5f));
+        // After walls
+        content.Add(new RObstacle1(32f));
+        content.Add(new RObstacle4(32f));
+        content.Add(new RObstacle2(34f));
+        content.Add(new RObstacle3(34f));
+        content.Add(new RObstacle1(35f));
+        content.Add(new RObstacle4(35f));
         // Next level
-        content.Add(new NextLevelTrigger(35f));
+        content.Add(new NextLevelTrigger(40f));
     }
 
 }
