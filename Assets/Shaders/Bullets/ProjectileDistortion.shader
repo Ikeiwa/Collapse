@@ -5,6 +5,7 @@ Shader "Collapse/Projectiles/Distortion"
         [HDR] _Color("Color",Color) = (1,1,1,1)
         _Refraction("Refraction",Float) = 1
         _RefractionDistance("Refraction Scale",Float) = 1
+        _FresnelPower("Fresnel Power", Float) = 1
     }
     SubShader
     {
@@ -42,6 +43,7 @@ Shader "Collapse/Projectiles/Distortion"
             sampler2D _SceneTexture;
             float _Refraction;
             float _RefractionDistance;
+            float _FresnelPower;
 
             v2f vert (appdata v)
             {
@@ -56,7 +58,7 @@ Shader "Collapse/Projectiles/Distortion"
                 float3 objRefraction = mul(unity_WorldToObject, refraction) * _RefractionDistance;
                 float4 newvertex = UnityObjectToClipPos(float4(objRefraction, v.vertex.w));
 
-                o.fresnel = 1 - saturate(dot(worldNormal, normalize(objToEye)));
+                o.fresnel = pow(1 - saturate(dot(worldNormal, normalize(objToEye))), _FresnelPower);
                 o.screenUV = ComputeGrabScreenPos(newvertex);
 
                 return o;

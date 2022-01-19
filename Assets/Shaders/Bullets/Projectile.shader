@@ -4,6 +4,7 @@ Shader "Collapse/Projectiles/Basic"
     {
         [HDR]_Color("Color",Color) = (1,1,1,1)
         [HDR]_ColorFresnel("Fresnel Color",Color) = (1,1,1,1)
+        _FresnelPower("Fresnel Power", Float) = 1
 
     }
     SubShader
@@ -35,6 +36,7 @@ Shader "Collapse/Projectiles/Basic"
 
             float4 _Color;
             float4 _ColorFresnel;
+            float _FresnelPower;
 
             v2f vert (appdata v)
             {
@@ -46,7 +48,7 @@ Shader "Collapse/Projectiles/Basic"
                 float3 worldViewDir = normalize(UnityWorldSpaceViewDir(worldPos));
                 float3 worldNormal = UnityObjectToWorldNormal(v.normal);
 
-                o.fresnel = 1 - saturate(dot(worldNormal, worldViewDir));
+                o.fresnel = pow(1 - saturate(dot(worldNormal, worldViewDir)), _FresnelPower);
                 return o;
             }
 
