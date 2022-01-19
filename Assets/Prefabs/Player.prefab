@@ -61,6 +61,7 @@ MonoBehaviour:
   dashDistance: 8
   focusSpeedFactor: 0.33
   fireRate: 0.05
+  power: 0
 --- !u!114 &5030536459266041455
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -388,7 +389,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4573688945409282409}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5199485159358891531}
@@ -5250,7 +5251,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5225716608960152771}
   m_LocalRotation: {x: -0.4999998, y: -0.50000024, z: 0.50000024, w: 0.4999998}
-  m_LocalPosition: {x: 0, y: 1.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5199485159358891531}

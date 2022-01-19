@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Collapse_Projectiles_Field
-  m_Shader: {fileID: 4800000, guid: bd48b7abd92ab814baa3925a1b38d5b6, type: 3}
+  m_Name: Collapse_Projectiles_Area
+  m_Shader: {fileID: 4800000, guid: c7290acf8fbde8d4092dd630c4febe03, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -21,5 +21,6 @@ Material:
     m_TexEnvs: []
     m_Floats: []
     m_Colors:
-    - _Color: {r: 0, g: 2.2073028, b: 2.297397, a: 1}
+    - _Color: {r: 2, g: 0, b: 0, a: 1}
+    - _ColorFresnel: {r: 1, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
