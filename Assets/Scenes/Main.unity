@@ -7011,6 +7011,7 @@ MonoBehaviour:
   PREFAB_Shot_LinearSmall: {fileID: 1444330665011068520, guid: 76f47d32f33ed424688a8b6d85bb0abe, type: 3}
   PREFAB_Shot_Walling: {fileID: 9150357275563358300, guid: a9d3e84da77b8be4e9e7f3cd163732ef, type: 3}
   PREFAB_Shot_Ally: {fileID: 9205238644211774724, guid: 759c929276a2f0747ba90a33df979b6f, type: 3}
+  PREFAB_Shot_MissileAlly: {fileID: 9205238644211774724, guid: 255146fa765faa44db466154fdd88ef5, type: 3}
   PREFAB_Powerup_Shield: {fileID: 899795450194999440, guid: 76acc0fc27453d24daa7b0e744831f3b, type: 3}
   PREFAB_Powerup_Bomb: {fileID: 899795450194999440, guid: 4bfc45691f649ef428f3e474b45c966a, type: 3}
   PREFAB_Powerup_Jump: {fileID: 899795450194999440, guid: e5236172537d68d4a9068bb27e65e2f6, type: 3}
