@@ -76,8 +76,10 @@ public class Level1 : LevelContent
         content.Add(new RObstacle3(34f));
         content.Add(new RObstacle1(35f));
         content.Add(new RObstacle4(35f));
+        // Midboss : magma diver
+        content.Add(new SpawnMagmaDiver(36f));
         // Next level
-        content.Add(new NextLevelTrigger(40f));
+        content.Add(new NextLevelTrigger(80f));
     }
 
 }

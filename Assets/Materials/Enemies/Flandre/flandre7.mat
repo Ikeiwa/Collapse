@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Ship
+  m_Name: flandre7
   m_Shader: {fileID: 4800000, guid: ec43d05778fd5c141a483a0869b429e6, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -75,6 +75,6 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0.7264151, g: 0, b: 0.22017026, a: 1}
+    - _Color: {r: 0.58132124, g: 1, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
