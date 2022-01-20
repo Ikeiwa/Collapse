@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class InGameUIManager : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class InGameUIManager : MonoBehaviour
     public static InGameUIManager instance;
 
     public RectTransform PowerSlider;
+    public TextMeshProUGUI PowerValue;
     public RectTransform PowerupUI;
 
     public Sprite PowerupIcon_Shield, PowerupIcon_Bomb, PowerupIcon_Jump;
@@ -54,6 +56,7 @@ public class InGameUIManager : MonoBehaviour
         if (s != null)
         {
             s.value = Mathf.Clamp(power, 0, 100);
+            PowerValue.text = s.value + "%";
         }
     }
 
