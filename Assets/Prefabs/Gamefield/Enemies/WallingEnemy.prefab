@@ -75,7 +75,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78d8e98585e5ace4786fcd09f965a5da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
+  health: 20
   landingtime: 0.3
 --- !u!1001 &3529240844033134196
 PrefabInstance:
