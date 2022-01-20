@@ -69,7 +69,7 @@ Shader "Unlit/OutlinedEntity"
                 float NdotL = saturate(dot(normal, _WorldSpaceLightPos0));
                 NdotL = saturate(NdotL + _AmbientLighting);
 
-                return _Color* i.color * NdotL;
+                return _Color* i.color * lerp(1,NdotL, i.color.a);
             }
             ENDCG
         }

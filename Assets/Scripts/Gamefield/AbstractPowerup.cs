@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,10 +8,16 @@ public class AbstractPowerup : MonoBehaviour
     protected Gamefield gf = Gamefield.instance;
     public static readonly Quaternion QUATERNION_DOWN = AbstractBullet.QUATERNION_DOWN;
 
+    private Transform ringMesh;
     private float speed = -0.3f;
     private bool homingTrigger = false;
 
     private static readonly float homingspeed = 0.5f, homingrange = 6f;
+
+    private void Awake()
+    {
+        ringMesh = transform.GetChild(0);
+    }
 
     private void FixedUpdate()
     {
@@ -34,6 +41,8 @@ public class AbstractPowerup : MonoBehaviour
                 speed += 0.015f;
                 transform.Translate(Vector3.forward * speed);
             }
+
+            if(ringMesh) ringMesh.Rotate(new Vector3(0,10,0), Space.World);
         }
     }
 
