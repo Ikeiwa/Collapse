@@ -6,7 +6,7 @@ public class FoodShieldEnemy : AbstractEnemy
 {
 
     private Vector3 startingpos;
-    private float circradii = 3f;
+    private float circradii = 4f;
 
     void Start()
     {

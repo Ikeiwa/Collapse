@@ -18,6 +18,7 @@ public class Level1 : LevelContent
         content.Add(new SpawnCreepLeft(2.4f));
         content.Add(new SpawnCreepLeft(2.6f));
         content.Add(new SpawnCreepLeft(2.8f));
+        content.Add(new SpawnShieldFood(10f,3f));
         // Obstacle stairs
         content.Add(new RObstacle1(6f));
         content.Add(new RObstacle2(6.5f));
