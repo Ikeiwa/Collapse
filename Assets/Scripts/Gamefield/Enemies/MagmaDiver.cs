@@ -19,7 +19,7 @@ public class MagmaDiver : AbstractEnemy
     }
 
     private float angle = 0f;
-    private int shotcooldown = 3, aimedcooldown = 20;
+    private int shotcooldown = 6, aimedcooldown = 30;
 
     protected override void FixedUpdate()
     {
@@ -32,14 +32,14 @@ public class MagmaDiver : AbstractEnemy
         aimedcooldown--;
         if (shotcooldown <= 0 && Grounded()) for (int i = 0; i < wings.Length; i++)
             {
-                shotcooldown = 3;
+                shotcooldown = 6;
                 Vector3 mispos = transform.position + wings[i];
                 Quaternion bangle = wings[i].x <= 0 ? Quaternion.Euler(new Vector3(0, 182, 0)) : Quaternion.Euler(new Vector3(0, 178, 0));
                 gf.AddProjectile(gf.PREFAB_Shot_LinearSmall, mispos, bangle, new BulletArguments { speed = 0.5f });
             }
         if (aimedcooldown <= 0 && Grounded()) for (int i = 0; i < wings.Length; i++)
             {
-                aimedcooldown = 30;
+                aimedcooldown = 38;
                 Vector3 mispos = transform.position + wings[i];
                 Quaternion bangle = Quaternion.LookRotation(gf.player.transform.position - mispos, Vector3.up);
                 gf.AddProjectile(gf.PREFAB_Shot_LinearHiglighted, mispos, bangle, new BulletArguments { speed = 0.9f });
