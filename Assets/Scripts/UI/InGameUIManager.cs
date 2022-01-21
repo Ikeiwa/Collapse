@@ -12,6 +12,7 @@ public class InGameUIManager : MonoBehaviour
     public RectTransform PowerSlider;
     public TextMeshProUGUI PowerValue;
     public RectTransform PowerupUI;
+    public Image PowerupIcon;
 
     public Sprite PowerupIcon_Shield, PowerupIcon_Bomb, PowerupIcon_Jump;
 
@@ -23,27 +24,26 @@ public class InGameUIManager : MonoBehaviour
     public void SetPowerup(PowerUp type)
     {
         Debug.Log("Setting UI powerup to : " + type);
-        RectTransform icontr = (RectTransform) PowerupUI.GetChild(0);
         switch (type)
         {
             default:
             case PowerUp.None:
-                icontr.GetComponent<Image>().enabled = false;
+                PowerupIcon.enabled = false;
                 PowerupUI.GetComponent<Animator>().SetBool("ON",false);
                 break;
             case PowerUp.Jump:
-                icontr.GetComponent<Image>().sprite = PowerupIcon_Jump;
-                icontr.GetComponent<Image>().enabled = true;
+                PowerupIcon.sprite = PowerupIcon_Jump;
+                PowerupIcon.enabled = true;
                 PowerupUI.GetComponent<Animator>().SetBool("ON", true);
                 break;
             case PowerUp.Bomb:
-                icontr.GetComponent<Image>().sprite = PowerupIcon_Bomb;
-                icontr.GetComponent<Image>().enabled = true;
+                PowerupIcon.sprite = PowerupIcon_Bomb;
+                PowerupIcon.enabled = true;
                 PowerupUI.GetComponent<Animator>().SetBool("ON", true);
                 break;
             case PowerUp.Shield:
-                icontr.GetComponent<Image>().sprite = PowerupIcon_Shield;
-                icontr.GetComponent<Image>().enabled = true;
+                PowerupIcon.sprite = PowerupIcon_Shield;
+                PowerupIcon.enabled = true;
                 PowerupUI.GetComponent<Animator>().SetBool("ON", true);
                 break;
         }
