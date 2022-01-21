@@ -115,6 +115,7 @@ public class PlayerController : MonoBehaviour
         }
 
         powerUp = PowerUp.None;
+        InGameUIManager.instance.SetPowerup(PowerUp.None);
     }
 
     // Update is called once per frame
