@@ -69,13 +69,6 @@ public class PlayerController : MonoBehaviour
 
     public void ObtainPowerup(PowerUp newPowerUp)
     {
-        InGameUIManager uipointer = InGameUIManager.instance;
-        if (uipointer != null)
-        {
-            // TODO: don't call this if the powerup is consumed immediately instead of being stored
-            uipointer.SetPowerup(newPowerUp);
-        }
-
         if (powerUp == PowerUp.None)
         {
             if (newPowerUp == PowerUp.Shield)
@@ -85,6 +78,13 @@ public class PlayerController : MonoBehaviour
                 return;
             }
             powerUp = newPowerUp;
+
+            InGameUIManager uipointer = InGameUIManager.instance;
+            if (uipointer != null)
+            {
+                // TODO: don't call this if the powerup is consumed immediately instead of being stored
+                uipointer.SetPowerup(newPowerUp);
+            }
         }
     }
 
@@ -102,18 +102,16 @@ public class PlayerController : MonoBehaviour
                 }
                 else return;
                 break;
-            case PowerUp.Shield:
-                if (!shielded)
-                {
-                    SetShieldState(true);
-                }
-                else return;
-                break;
             case PowerUp.Bomb:
 
                 break;
         }
 
+        RemovePowerup();
+    }
+
+    private void RemovePowerup()
+    {
         powerUp = PowerUp.None;
         InGameUIManager.instance.SetPowerup(PowerUp.None);
     }
@@ -213,19 +211,25 @@ public class PlayerController : MonoBehaviour
         {
             if (!obstacle.jumpable || (obstacle.jumpable && (jump < 0.1f || jump > 0.9f)))
             {
-                if (shielded)
-                {
-                    SetShieldState(false);
-                }
-                else
-                {
-                    LevelManager.instance.Death();
-                }
+                Damage();
                 return true;
             }
         }
 
         return false;
+    }
+
+    public void Damage()
+    {
+        if (shielded)
+        {
+            SetShieldState(false);
+            RemovePowerup();
+        }
+        else
+        {
+            LevelManager.instance.Death();
+        }
     }
 
     private void SetShieldState(bool hasShield)
