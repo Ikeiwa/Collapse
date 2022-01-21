@@ -13,6 +13,7 @@ public class AbstractPlayerShot : MonoBehaviour
         AbstractEnemy target = collision.gameObject.GetComponent<AbstractEnemy>();
         if (target != null) {
             target.Damage(GetDamage());
+            Kill();
         }
     }
 

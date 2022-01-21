@@ -6912,6 +6912,7 @@ MonoBehaviour:
   PREFAB_Enemy_CreepSingle: {fileID: 8813779941746551171, guid: 30629bb70c41f0c4ca42769bb0c707ce, type: 3}
   PREFAB_Enemy_WallingEnemy: {fileID: 8813779941746551171, guid: 88692c5eb14c91045aeb6a9e843e45f4, type: 3}
   PREFAB_Enemy_MagmaDiver: {fileID: 8813779941746551171, guid: 4eadc9529ba646746b20b7674df2b8bf, type: 3}
+  PREFAB_Enemy_ShieldFood: {fileID: 8813779941746551171, guid: 00d427a2a7bf9ca44b2c88acc9e3af7b, type: 3}
   PREFAB_Shot_LinearSmall: {fileID: 1444330665011068520, guid: 76f47d32f33ed424688a8b6d85bb0abe, type: 3}
   PREFAB_Shot_LinearHiglighted: {fileID: 1444330665011068520, guid: d68c54ec384e1994c9b535f88c1c88a8, type: 3}
   PREFAB_Shot_Walling: {fileID: 9150357275563358300, guid: a9d3e84da77b8be4e9e7f3cd163732ef, type: 3}
