@@ -13,6 +13,7 @@ Shader "Unlit/Warning"
 
 		Blend SrcAlpha OneMinusSrcAlpha
     	Cull Off
+    	ZWrite Off
     	Offset -1 , 10
 
         Pass

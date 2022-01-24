@@ -6,7 +6,7 @@ using UnityEngine;
 public class AbstractPowerup : MonoBehaviour
 {
     protected Gamefield gf = Gamefield.instance;
-    public static readonly Quaternion QUATERNION_DOWN = AbstractBullet.QUATERNION_DOWN;
+    public static readonly Quaternion QUATERNION_DOWN = Quaternion.Euler(0,180,0);
 
     private Transform ringMesh;
     private float speed = -0.3f;
