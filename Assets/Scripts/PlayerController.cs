@@ -71,20 +71,14 @@ public class PlayerController : MonoBehaviour
     {
         if (powerUp == PowerUp.None)
         {
+            powerUp = newPowerUp;
             if (newPowerUp == PowerUp.Shield)
             {
                 if (!shielded)
                     SetShieldState(true);
-                return;
             }
-            powerUp = newPowerUp;
 
-            InGameUIManager uipointer = InGameUIManager.instance;
-            if (uipointer != null)
-            {
-                // TODO: don't call this if the powerup is consumed immediately instead of being stored
-                uipointer.SetPowerup(newPowerUp);
-            }
+            InGameUIManager.instance.SetPowerup(newPowerUp);
         }
     }
 
