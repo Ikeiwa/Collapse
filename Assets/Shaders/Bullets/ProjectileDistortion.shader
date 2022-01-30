@@ -6,6 +6,7 @@ Shader "Collapse/Projectiles/Distortion"
         _Refraction("Refraction",Float) = 1
         _RefractionDistance("Refraction Scale",Float) = 1
         _FresnelPower("Fresnel Power", Float) = 1
+        [Enum(UnityEngine.Rendering.CullMode)] _Cull("Cull", Float) = 2
     }
     SubShader
     {
@@ -13,6 +14,7 @@ Shader "Collapse/Projectiles/Distortion"
 		LOD 100
 
 		ZWrite Off
+        Cull[_Cull]
     	
     	GrabPass{"_SceneTexture"}
 
@@ -58,7 +60,7 @@ Shader "Collapse/Projectiles/Distortion"
                 float3 objRefraction = mul(unity_WorldToObject, refraction) * _RefractionDistance;
                 float4 newvertex = UnityObjectToClipPos(float4(objRefraction, v.vertex.w));
 
-                o.fresnel = pow(1 - saturate(dot(worldNormal, normalize(objToEye))), _FresnelPower);
+                o.fresnel = pow(1 - saturate(abs(dot(worldNormal, normalize(objToEye)))), _FresnelPower);
                 o.screenUV = ComputeGrabScreenPos(newvertex);
 
                 return o;
@@ -67,7 +69,7 @@ Shader "Collapse/Projectiles/Distortion"
             fixed4 frag(v2f i) : SV_Target
             {
                 fixed4 grab = tex2Dproj(_SceneTexture, UNITY_PROJ_COORD(i.screenUV));
-                return grab*lerp(1,_Color,i.fresnel);
+                return grab*lerp(1,_Color,i.fresnel*_Color.a);
             }
             ENDCG
         }

@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour
 {
     public GameObject dashTrail;
     public ParticleSystem jumpSmoke;
+    public ParticleSystem explosion;
+    public GameObject BombPrefab;
 
     public float maxSpeed = 5;
     public float accel = 10;
@@ -37,6 +39,8 @@ public class PlayerController : MonoBehaviour
 
     private float nextFire = 0;
     private float nextMissile = 1f;
+
+    private float invincible = 0;
 
     private PowerUp powerUp = PowerUp.None;
     private float jump = 0;
@@ -97,8 +101,10 @@ public class PlayerController : MonoBehaviour
                 else return;
                 break;
             case PowerUp.Bomb:
-
+                UseBomb();
                 break;
+            case PowerUp.Shield:
+                return;
         }
 
         RemovePowerup();
@@ -171,6 +177,9 @@ public class PlayerController : MonoBehaviour
         if (dashTimer > 0)
             dashTimer -= Time.fixedDeltaTime;
 
+        if (invincible > 0)
+            invincible -= Time.fixedDeltaTime;
+
         if (jump > 0)
         {
             jump -= Time.fixedDeltaTime;
@@ -215,15 +224,22 @@ public class PlayerController : MonoBehaviour
 
     public void Damage()
     {
-        if (shielded)
+        if (invincible <= 0)
         {
-            SetShieldState(false);
-            RemovePowerup();
+            if (shielded)
+            {
+                SetShieldState(false);
+                RemovePowerup();
+                Instantiate(BombPrefab, transform.position, Quaternion.identity);
+                invincible = 1;
+            }
+            else
+            {
+                LevelManager.instance.Death();
+                anim.SetTrigger("Death");
+            }
         }
-        else
-        {
-            LevelManager.instance.Death();
-        }
+        
     }
 
     private void SetShieldState(bool hasShield)
@@ -242,9 +258,26 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void UseBomb()
+    {
+        LevelManager.instance.SetGameSpeed(0.05f);
+        LevelManager.instance.SetGameSpeed(1, 2, CurveLibrary.easeOut);
+        PostProcessController.instance.SetChromaticAberation(1);
+        PostProcessController.instance.SetChromaticAberation(0, 2, CurveLibrary.easeOut);
+        PostProcessController.instance.SetLensDistortion(-50);
+        PostProcessController.instance.SetLensDistortion(0, 2, CurveLibrary.easeOut);
+
+        Instantiate(BombPrefab, transform.position, Quaternion.identity);
+    }
+
     public void PlayJumpSmoke()
     {
         jumpSmoke.Play();
+    }
+
+    public void PlayExplosion()
+    {
+        explosion.Play();
     }
 
     public void PlaySound(AudioClip clip)
