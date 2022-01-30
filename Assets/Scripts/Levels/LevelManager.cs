@@ -9,6 +9,7 @@ public class LevelManager : MonoBehaviour
 {
     public static LevelManager instance { get; private set; }
 
+    public int startLevel = 0;
     public LevelData[] levels;
     public Transform tilesRoot;
     public Transform lanesRoot;
@@ -23,6 +24,7 @@ public class LevelManager : MonoBehaviour
     public int currentLevelIndex { get; private set; }
     public LevelData currentLevel { get; private set; }
     [Space]
+    public GameObject pauseManager;
     public PlayerController player;
     public CameraController mainCamera;
 
@@ -100,7 +102,9 @@ public class LevelManager : MonoBehaviour
         gameStarted = true;
         speed = 50;
         player.enabled = true;
-        LoadLevel(0);
+
+        pauseManager.SetActive(true);
+        LoadLevel(startLevel);
     }
 
     public void LoadLevel(int level = 0)
