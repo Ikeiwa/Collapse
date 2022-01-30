@@ -34,7 +34,7 @@ public class AbstractPowerup : MonoBehaviour
             }
             if (homingTrigger)
             {
-                transform.position = new Vector3(transform.position.x > playerX ? transform.position.x - homingspeed : transform.position.x + homingspeed, transform.position.y, transform.position.z / 2);
+                transform.position = new Vector3(transform.position.x > playerX ? transform.position.x - homingspeed : transform.position.x + homingspeed, 0, transform.position.z / 2);
             }
             else
             {
