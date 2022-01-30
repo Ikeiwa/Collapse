@@ -24,6 +24,7 @@ public class Level1 : LevelContent
         content.Add(new RObstacle2(6.5f));
         content.Add(new RObstacle3(7f));
         content.Add(new RObstacle4(7.5f));
+        content.Add(new RObstacle1(7.5f));
         // Walls
         content.Add(new RObstacle1(8.5f));
         content.Add(new RObstacle4(8.5f));
@@ -67,20 +68,62 @@ public class Level1 : LevelContent
         content.Add(new SpawnCreepRight(26f));
         // Wallers
         content.Add(new SpawnWallier(28f, -20f));
-        content.Add(new SpawnWallier(28f, 20f));
         content.Add(new SpawnCreepLeft(29.5f));
         content.Add(new SpawnCreepRight(29.5f));
+        content.Add(new SpawnWallier(31f, 20f));
         // After walls
-        content.Add(new RObstacle1(32f));
-        content.Add(new RObstacle4(32f));
-        content.Add(new RObstacle2(34f));
-        content.Add(new RObstacle3(34f));
-        content.Add(new RObstacle1(35f));
-        content.Add(new RObstacle4(35f));
-        // Midboss : magma diver
-        content.Add(new SpawnMagmaDiver(36f));
+        content.Add(new RObstacle1(33.2f));
+        content.Add(new RObstacle4(33.2f));
+        content.Add(new RObstacle2(35f));
+        content.Add(new RObstacle3(35f));
+        content.Add(new RObstacle1(36f));
+        content.Add(new RObstacle4(36f));
+        // Left wallers
+        content.Add(new SpawnWallier(38f, -20f));
+        content.Add(new SpawnCreepLeft(39f));
+        content.Add(new SpawnCreepRight(39f));
+        content.Add(new SpawnCreepLeft(39.5f));
+        content.Add(new SpawnCreepRight(39.5f));
+        content.Add(new SpawnCreepLeft(40f));
+        content.Add(new SpawnCreepRight(40f));
+        content.Add(new SpawnCreepLeft(40.5f));
+        content.Add(new SpawnCreepRight(40.5f));
+        content.Add(new SpawnWallier(42f, -10f));
+        // Z Walls
+        content.Add(new SpawnCreepRight(45.5f));
+        content.Add(new SpawnCreepRight(45.75f));
+        content.Add(new SpawnCreepRight(46f));
+        content.Add(new SpawnCreepRight(46.25f));
+        content.Add(new SpawnCreepRight(46.5f));
+        content.Add(new SpawnCreepRight(46.75f));
+        content.Add(new RObstacle1(48f));
+        content.Add(new RObstacle2(48f));
+        content.Add(new RObstacle3(49f));
+        content.Add(new RObstacle4(49f));
+        content.Add(new RObstacle1(50f));
+        content.Add(new RObstacle2(50f));
+        content.Add(new SpawnShieldFood(-10f, 50.5f));
+        // L walls
+        content.Add(new RObstacle1(52f));
+        content.Add(new SpawnCreepLeft(52.5f));
+        content.Add(new RObstacle1(53f));
+        content.Add(new SpawnCreepLeft(53.5f));
+        content.Add(new RObstacle1(54f));
+        content.Add(new SpawnCreepLeft(54.5f));
+        content.Add(new RObstacle3(55f));
+        content.Add(new RObstacle4(55f));
+        content.Add(new RObstacle2(55.5f));
+        // Double wallers
+        content.Add(new SpawnCreepLeft(56f));
+        content.Add(new SpawnCreepRight(56f));
+        content.Add(new SpawnCreepLeft(56.5f));
+        content.Add(new SpawnCreepRight(56.5f));
+        content.Add(new SpawnWallier(57f, -20f));
+        content.Add(new SpawnWallier(57f, 20f));
+        content.Add(new RObstacle2(57.5f));
+        content.Add(new RObstacle3(57.5f));
         // Next level
-        content.Add(new NextLevelTrigger(80f));
+        content.Add(new NextLevelTrigger(65f));
     }
 
 }

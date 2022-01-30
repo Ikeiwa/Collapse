@@ -1209,7 +1209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ae1e5887f60ddf4b960c1520c36f02c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 1300
+  health: 500
   landingtime: 1.5
 --- !u!1 &9115455499480528543
 GameObject:
