@@ -102,6 +102,7 @@ public class LevelManager : MonoBehaviour
         gameStarted = true;
         speed = 50;
         player.enabled = true;
+
         pauseManager.SetActive(true);
         LoadLevel(startLevel);
     }
