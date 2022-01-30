@@ -6,6 +6,8 @@ public class Level3 : LevelContent
 {
     public Level3()
     {
-        content.Add(new NextLevelTrigger(10f));
+        // Midboss : magma diver
+        content.Add(new SpawnMagmaDiver(1f));
+        content.Add(new NextLevelTrigger(20f));
     }
 }
