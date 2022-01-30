@@ -22,6 +22,6 @@ MonoBehaviour:
   - {fileID: 4315065528995779210, guid: 3bf3180855519434d91136df815c00bb, type: 3}
   - {fileID: -3729835053101608524, guid: 940e313895bed704c9a2279e78027fda, type: 3}
   obstacles:
-  - {fileID: 0}
+  - {fileID: 4662444518709677401, guid: 6e21c37c01161d0458a24d739c497930, type: 3}
   obstaclesChance: []
   contentID: 4
