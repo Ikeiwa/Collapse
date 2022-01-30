@@ -21,6 +21,7 @@ MonoBehaviour:
   tiles:
   - {fileID: 76164152436635042, guid: 505702d59644aa34baef47f5a4a5c20a, type: 3}
   - {fileID: 8134839989832385963, guid: d8b385f9724ca6748847f1824a96e675, type: 3}
-  obstacles: []
+  obstacles:
+  - {fileID: 4662444518709677401, guid: 6e21c37c01161d0458a24d739c497930, type: 3}
   obstaclesChance: []
   contentID: 3

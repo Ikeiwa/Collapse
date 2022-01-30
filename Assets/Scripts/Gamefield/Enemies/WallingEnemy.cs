@@ -23,7 +23,7 @@ public class WallingEnemy : PathfindingEnemy
         shotcooldown--;
         if (timeLocale >= 0.5f && shotcooldown <= 0)
         {
-            shotcooldown = 2;
+            shotcooldown = 3;
             gf.AddProjectile(gf.PREFAB_Shot_LinearSmall, transform.position, AbstractBullet.QUATERNION_DOWN, new BulletArguments { speed = 0.8f });
         }
 

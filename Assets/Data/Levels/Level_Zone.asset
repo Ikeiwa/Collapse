@@ -20,6 +20,7 @@ MonoBehaviour:
   startTile: {fileID: 47104625362522639, guid: b9fe782fd8cfcf44eab8fd1f2481a644, type: 3}
   tiles:
   - {fileID: 47104625362522639, guid: b9fe782fd8cfcf44eab8fd1f2481a644, type: 3}
-  obstacles: []
+  obstacles:
+  - {fileID: 4662444518709677401, guid: 6e21c37c01161d0458a24d739c497930, type: 3}
   obstaclesChance: []
   contentID: 5
