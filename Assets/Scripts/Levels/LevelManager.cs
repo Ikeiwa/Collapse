@@ -100,7 +100,7 @@ public class LevelManager : MonoBehaviour
         gameStarted = true;
         speed = 50;
         player.enabled = true;
-        LoadLevel(1);
+        LoadLevel(2);
     }
 
     public void LoadLevel(int level = 0)
