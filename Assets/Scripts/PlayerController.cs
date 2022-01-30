@@ -13,6 +13,7 @@ public enum PowerUp
 
 public class PlayerController : MonoBehaviour
 {
+    public AudioSource fireSource;
     public GameObject dashTrail;
     public ParticleSystem jumpSmoke;
     public ParticleSystem explosion;
@@ -110,7 +111,7 @@ public class PlayerController : MonoBehaviour
         RemovePowerup();
     }
 
-    private void RemovePowerup()
+    public void RemovePowerup()
     {
         powerUp = PowerUp.None;
         InGameUIManager.instance.SetPowerup(PowerUp.None);
@@ -138,6 +139,9 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Keypad2))
             ObtainPowerup(PowerUp.Shield);
+
+        if (Input.GetKeyDown(KeyCode.Keypad3))
+            ObtainPowerup(PowerUp.Bomb);
 
         anim.SetFloat(VelocityParam, velocity);
     }
@@ -193,6 +197,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetButton("Fire") && Time.time > nextFire)
         {
+            fireSource.Play();
             nextFire = Time.time + fireRate;
             Gamefield.instance.AddProjectileAlly(Gamefield.instance.PREFAB_Shot_Ally, transform.position + new Vector3(0.35f, 0, 3), Quaternion.identity);
             Gamefield.instance.AddProjectileAlly(Gamefield.instance.PREFAB_Shot_Ally, transform.position + new Vector3(-0.35f, 0, 3), Quaternion.identity);
@@ -226,6 +231,7 @@ public class PlayerController : MonoBehaviour
     {
         if (invincible <= 0)
         {
+            
             if (shielded)
             {
                 SetShieldState(false);
@@ -237,6 +243,7 @@ public class PlayerController : MonoBehaviour
             {
                 LevelManager.instance.Death();
                 anim.SetTrigger("Death");
+                invincible = 3;
             }
         }
         
@@ -268,6 +275,13 @@ public class PlayerController : MonoBehaviour
         PostProcessController.instance.SetLensDistortion(0, 2, CurveLibrary.easeOut);
 
         Instantiate(BombPrefab, transform.position, Quaternion.identity);
+    }
+
+    public void Reset()
+    {
+        anim.SetTrigger("Restart");
+        power = 0;
+        RemovePowerup();
     }
 
     public void PlayJumpSmoke()

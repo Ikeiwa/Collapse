@@ -55,10 +55,8 @@ public class LevelData : ScriptableObject
     public LevelID contentID;
     private LevelContent content = null;
 
-    public LevelContent GetContent()
+    public void LoadContent()
     {
-        if (content != null)
-            return content;
         switch (contentID)
         {
             case LevelID.Plains: content = new Level1(); break;
@@ -68,6 +66,13 @@ public class LevelData : ScriptableObject
             case LevelID.Zone: content = new Level5(); break;
             case LevelID.Singularity: content = new Level6(); break;
         }
+    }
+
+    public LevelContent GetContent()
+    {
+        if (content == null)
+            LoadContent();
+        
         return content;
     }
 

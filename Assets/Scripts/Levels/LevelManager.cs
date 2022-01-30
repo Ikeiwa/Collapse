@@ -24,11 +24,12 @@ public class LevelManager : MonoBehaviour
     public int currentLevelIndex { get; private set; }
     public LevelData currentLevel { get; private set; }
     [Space]
-    public GameObject pauseManager;
+    public PauseManager pauseManager;
+    public Animator gameOverAnim;
     public PlayerController player;
     public CameraController mainCamera;
 
-    private bool gameStarted = false, levelcontentRunning = false;
+    private bool gameStarted = false, levelcontentRunning = false, dead = false;
 
     /// <summary>
     /// Time in the level's perspective. Starts at 0 when a level starts, and increments like any timer.
@@ -102,14 +103,57 @@ public class LevelManager : MonoBehaviour
         gameStarted = true;
         speed = 50;
         player.enabled = true;
-        pauseManager.SetActive(true);
+        player.Reset();
+        pauseManager.enabled = true;
+        dead = false;
         LoadLevel(startLevel);
+    }
+
+    public void StopGame()
+    {
+        gameStarted = false;
+        speed = 0;
+        player.enabled = false;
+        levelcontentRunning = false;
+        LocaleLevelTime = 0;
+        Gamefield.instance.ClearGamefield();
+        pauseManager.UnPause();
+        pauseManager.enabled = false;
+        StopAllCoroutines();
+        if (dead)
+        {
+            dead = false;
+            StartCoroutine(UtilityCoroutines.FadeTimeSpeed(1, 2));
+            AudioEffectsController.instance.SetAudioSpeed(1, 2);
+            AudioEffectsController.instance.SetLowPassEffect(0, 2);
+        }
+        StartCoroutine(EndLevelAnim(false));
+    }
+
+    public void RestartGame()
+    {
+        pauseManager.enabled = true;
+        levelcontentRunning = false;
+        LocaleLevelTime = 0;
+        Gamefield.instance.ClearGamefield();
+        player.Reset();
+        StopAllCoroutines();
+        if (dead)
+        {
+            dead = false;
+            Time.timeScale = 1;
+            AudioEffectsController.instance.SetAudioSpeed(1);
+            AudioEffectsController.instance.SetLowPassEffect(0);
+        }
+        currentLevelIndex = -1;
+        StartCoroutine(EndLevelAnim());
     }
 
     public void LoadLevel(int level = 0)
     {
         currentLevelIndex = level;
         currentLevel = levels[currentLevelIndex];
+        currentLevel.LoadContent();
         curveChangeTimer = transitionDuration + 5;
         levelCurve.curveTarget = Vector3.zero;
         musicPlayer.clip = currentLevel.music;
@@ -148,7 +192,7 @@ public class LevelManager : MonoBehaviour
         levelcontentRunning = true;
     }
 
-    private IEnumerator EndLevelAnim()
+    private IEnumerator EndLevelAnim(bool loadNext = true)
     {
         StartCoroutine(UtilityCoroutines.FadeVolume(musicPlayer, 0, 2, true));
 
@@ -157,10 +201,14 @@ public class LevelManager : MonoBehaviour
         curveChangeTimer = 100;
         yield return new WaitForSeconds(2f);
 
-        if (currentLevelIndex <= levels.Length - 2)
-            LoadLevel(currentLevelIndex + 1);
-        else
-            Debug.Log("Warning : trying to load in level " + (currentLevelIndex + 1) + ", skipping call (out of bounds, max = " + (levels.Length - 1) + ")");
+        if (loadNext)
+        {
+            if (currentLevelIndex <= levels.Length - 2)
+                LoadLevel(currentLevelIndex + 1);
+            else
+                Debug.Log("Warning : trying to load in level " + (currentLevelIndex + 1) + ", skipping call (out of bounds, max = " + (levels.Length - 1) + ")");
+        }
+
     }
 
     /// <summary>
@@ -217,9 +265,14 @@ public class LevelManager : MonoBehaviour
 
     public void Death()
     {
+        dead = true;
         StartCoroutine(UtilityCoroutines.FadeTimeSpeed(0, 2));
         AudioEffectsController.instance.SetAudioSpeed(0, 2);
         AudioEffectsController.instance.SetLowPassEffect(1, 2);
-        gameStarted = false;
+        pauseManager.UnPause();
+        pauseManager.enabled = false;
+        gameOverAnim.SetTrigger("Show");
     }
+
+    
 }

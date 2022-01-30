@@ -17,8 +17,11 @@ public class AbstractBullet : MonoBehaviour
     /// </summary>
     void OnTriggerEnter(Collider collision)
     {
-        Debug.Log("Bullet collision : " + collision.gameObject.layer);
-        gf.player.GetComponent<PlayerController>()?.Damage();
+        if (collision.gameObject.layer == 7)
+        {
+            Debug.Log("Bullet collision : " + collision.gameObject.layer);
+            gf.player.GetComponent<PlayerController>()?.Damage();
+        }
     }
 
     /// <summary>

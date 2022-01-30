@@ -52,6 +52,22 @@ public class Gamefield : MonoBehaviour
     {
     }
 
+    public void ClearGamefield()
+    {
+        foreach (GameObject entity in content_enemies) { Destroy(entity); }
+        foreach (GameObject entity in content_projectiles) { Destroy(entity); }
+        foreach (GameObject entity in content_powerups) { Destroy(entity); }
+        foreach (GameObject entity in content_projectilesAlly) { Destroy(entity); }
+        foreach (GameObject entity in content_obstacles) { Destroy(entity); }
+        foreach (ObstacleBase obstacle in FindObjectsOfType<ObstacleBase>()) { Destroy(obstacle.gameObject); }
+
+        content_enemies.Clear();
+        content_projectiles.Clear();
+        content_powerups.Clear();
+        content_projectilesAlly.Clear();
+        content_obstacles.Clear();
+    }
+
     // Add list elements
     public void AddEnemy(GameObject prefab, Vector3 position, Quaternion rotation)
     {
