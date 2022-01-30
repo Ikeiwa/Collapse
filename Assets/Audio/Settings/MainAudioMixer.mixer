@@ -56,10 +56,18 @@ AudioMixerController:
     name: Speed
   - guid: b0506cb5d910d3a4888cbba8f54ee18e
     name: LowPass
+  - guid: 66b451684f8fbaf478139aa1ac6124d0
+    name: MasterVolume
+  - guid: b4b5797cc66a4074ea10f3fa86bd177f
+    name: MusicVolume
   - guid: 65a8e5d2673b23246aeed98798acedc0
     name: ShieldLow
   - guid: 92e09e6b5168a444997b4298effecc96
     name: ShieldHigh
+  - guid: 76b7371a05514504e90a3a24ccc00425
+    name: SoundEffectVolume
+  - guid: c4df7bdc1465da944aaba6162f6b0177
+    name: UIVolume
   m_AudioMixerGroupViews:
   - guids:
     - 307afb8555f120f4ab2b59d1e223a687

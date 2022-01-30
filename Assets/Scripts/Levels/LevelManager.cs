@@ -56,9 +56,9 @@ public class LevelManager : MonoBehaviour
 
     void Start()
     {
+        currentLevel = levels[0];
         RenderSettings.fogColor = levels[0].skyColor;
         skyMaterial.SetColor(ColorHorizon, levels[0].skyColor);
-        StartGame();
     }
 
     void Update()
@@ -99,6 +99,7 @@ public class LevelManager : MonoBehaviour
     {
         gameStarted = true;
         speed = 50;
+        player.enabled = true;
         LoadLevel(0);
     }
 
