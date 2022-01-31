@@ -29,6 +29,7 @@ public class LevelManager : MonoBehaviour
     public Animator victoryAnim;
     public PlayerController player;
     public CameraController mainCamera;
+    public int maxObtainLevel = 0;
 
     private bool gameStarted = false, levelcontentRunning = false, dead = false;
 
@@ -56,6 +57,7 @@ public class LevelManager : MonoBehaviour
 
         skyMaterial = new Material(RenderSettings.skybox);
         RenderSettings.skybox = skyMaterial;
+        maxObtainLevel = PlayerPrefs.GetInt("MaxLevel", 0);
     }
 
     void Start()
@@ -131,7 +133,7 @@ public class LevelManager : MonoBehaviour
         StartCoroutine(EndLevelAnim(false));
     }
 
-    public void RestartGame()
+    public void RestartGame(int level = 0)
     {
         pauseManager.enabled = true;
         levelcontentRunning = false;
@@ -146,7 +148,7 @@ public class LevelManager : MonoBehaviour
             AudioEffectsController.instance.SetAudioSpeed(1);
             AudioEffectsController.instance.SetLowPassEffect(0);
         }
-        currentLevelIndex = -1;
+        currentLevelIndex = level-1;
         StartCoroutine(EndLevelAnim());
     }
 
@@ -158,6 +160,12 @@ public class LevelManager : MonoBehaviour
         curveChangeTimer = transitionDuration + 5;
         levelCurve.curveTarget = Vector3.zero;
         musicPlayer.clip = currentLevel.music;
+
+        if (level > maxObtainLevel)
+        {
+            maxObtainLevel = level;
+            PlayerPrefs.SetInt("MaxLevel", maxObtainLevel);
+        }
 
         SpawnTile(true);
 
