@@ -12200,7 +12200,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Evann DELAUNAY / Nicolas CANDELA . 2021
+  m_text: Evann DELAUNAY / Nicolas CANDELA . 2022
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: afb4e8b18ecde8d449aadf725faad175, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: ad0b8c1d295edf042a58860c8780e1cc, type: 2}
