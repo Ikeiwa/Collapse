@@ -24,6 +24,7 @@
     <div id="unity-fullscreen-button" style="display: none;"></div>
     <script>
       const hideFullScreenButton = "{{{ HIDE_FULL_SCREEN_BUTTON }}}";
+      const quiturl = "https://google.fr/";
       const buildUrl = "Build";
       const loaderUrl = buildUrl + "/{{{ LOADER_FILENAME }}}";
       const config = {
@@ -96,6 +97,17 @@
         });
       };
       document.body.appendChild(script);
+
+      (function(oldLog) {
+        console.log = function(arg) {
+            if (typeof arg === "string" && arg.indexOf("done!") !== -1) {
+              window.location.replace(quiturl);
+            }
+
+            // now call original console.log() with original arguments
+            return oldLog.apply(console, arguments);
+        };
+        })(console.log);
     </script>
   </body>
 </html>
