@@ -13,7 +13,7 @@ public class Level3 : LevelContent
         content.Add(new RObstacle3(0.9f));
         content.Add(new SpawnCreepLeft(1.5f));
         content.Add(new SpawnCreepRight(1.5f));
-        //Middle slalom
+        // Middle slalom
         content.Add(new RObstacle1(1.5f));
         content.Add(new RObstacle4(1.5f));
         content.Add(new RObstacle1(2f));
