@@ -26,6 +26,7 @@ public class LevelManager : MonoBehaviour
     [Space]
     public PauseManager pauseManager;
     public Animator gameOverAnim;
+    public Animator victoryAnim;
     public PlayerController player;
     public CameraController mainCamera;
 
@@ -206,7 +207,11 @@ public class LevelManager : MonoBehaviour
             if (currentLevelIndex <= levels.Length - 2)
                 LoadLevel(currentLevelIndex + 1);
             else
+            {
+                victoryAnim.SetTrigger("Show");
+                Gamefield.instance.ClearGamefield();
                 Debug.Log("Warning : trying to load in level " + (currentLevelIndex + 1) + ", skipping call (out of bounds, max = " + (levels.Length - 1) + ")");
+            }
         }
 
     }
