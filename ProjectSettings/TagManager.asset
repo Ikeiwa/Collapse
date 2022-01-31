@@ -8,17 +8,17 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - PostProcessing
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Terrain
+  - Player
+  - Enemy
+  - Projectile
+  - Volume
+  - Powerup
+  - ProjectileAlly
+  - Bomb
   - 
   - 
   - 

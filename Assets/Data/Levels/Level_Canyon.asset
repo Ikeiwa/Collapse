@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a98232f327a11d94f988972a3fb3c3a1, type: 3}
+  m_Name: Level_Canyon
+  m_EditorClassIdentifier: 
+  displayName: Canyon
+  distance: 800
+  music: {fileID: 8300000, guid: 737f820aacfc5ba418ddb6eada3979e1, type: 3}
+  skyColor: {r: 0.8773585, g: 0.60689753, b: 0, a: 0}
+  maxCurve: {x: 3, y: 0, z: 0}
+  startTile: {fileID: 8786145137870911821, guid: 82fec335612fc4b448404bbfe592de84, type: 3}
+  tiles:
+  - {fileID: 6391478620655688735, guid: 5691a6685186cad4cbe3706ced9bbb8b, type: 3}
+  obstacles:
+  - {fileID: 1301663821623109222, guid: 89cabfb1c414b244b9b8ad5e7638403e, type: 3}
+  obstaclesChance: []
+  contentID: 2
