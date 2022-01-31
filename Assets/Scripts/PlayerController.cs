@@ -52,6 +52,7 @@ public class PlayerController : MonoBehaviour
     private AudioSource audioSource;
 
     private static readonly int VelocityParam = Animator.StringToHash("Velocity");
+    private static readonly int FocusedParam = Animator.StringToHash("Focused");
 
     // Start is called before the first frame update
     void Awake()
@@ -133,6 +134,7 @@ public class PlayerController : MonoBehaviour
         }
 
         focused = Input.GetButton("Focus");
+        anim.SetBool(FocusedParam, focused);
 
         if (Input.GetKeyDown(KeyCode.Keypad1))
             ObtainPowerup(PowerUp.Jump);
@@ -283,6 +285,8 @@ public class PlayerController : MonoBehaviour
         power = 0;
         InGameUIManager.instance.SetPower(0);
         RemovePowerup();
+        if(shielded)
+            SetShieldState(false);
     }
 
     public void PlayJumpSmoke()

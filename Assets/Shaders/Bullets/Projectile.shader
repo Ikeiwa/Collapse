@@ -5,12 +5,13 @@ Shader "Collapse/Projectiles/Basic"
         [HDR]_Color("Color",Color) = (1,1,1,1)
         [HDR]_ColorFresnel("Fresnel Color",Color) = (1,1,1,1)
         _FresnelPower("Fresnel Power", Float) = 1
-
+        [Enum(UnityEngine.Rendering.CompareFunction)] _ZTest("ZTest", Float) = 4
     }
     SubShader
     {
         Tags { "RenderType"="Opaque" }
         LOD 100
+    	ZTest [_ZTest]
 
         Pass
         {
