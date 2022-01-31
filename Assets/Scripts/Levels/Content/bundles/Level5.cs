@@ -8,5 +8,6 @@ public class Level5 : LevelContent
     {
         content.Add(new SpawnMagmaDiver(1f));
         content.Add(new SpawnMagmaDiver(1.5f));
+        content.Add(new NextLevelTrigger(15f));
     }
 }
