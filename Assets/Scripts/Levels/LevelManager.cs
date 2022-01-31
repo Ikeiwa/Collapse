@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.EventSystems;
 using Random = UnityEngine.Random;
 
 public class LevelManager : MonoBehaviour
@@ -114,6 +115,7 @@ public class LevelManager : MonoBehaviour
 
     public void StopGame()
     {
+        EventSystem.current.SetSelectedGameObject(null);
         gameStarted = false;
         speed = 0;
         player.enabled = false;
@@ -135,6 +137,7 @@ public class LevelManager : MonoBehaviour
 
     public void RestartGame(int level = 0)
     {
+        EventSystem.current.SetSelectedGameObject(null);
         pauseManager.enabled = true;
         levelcontentRunning = false;
         LocaleLevelTime = 0;
@@ -148,11 +151,15 @@ public class LevelManager : MonoBehaviour
             AudioEffectsController.instance.SetAudioSpeed(1);
             AudioEffectsController.instance.SetLowPassEffect(0);
         }
-        currentLevelIndex = level-1;
-        StartCoroutine(EndLevelAnim());
+
+        if (level == -1)
+            currentLevelIndex--;
+        else
+            currentLevelIndex = level-1;
+        StartCoroutine(EndLevelAnim(true,true));
     }
 
-    public void LoadLevel(int level = 0)
+    public void LoadLevel(int level = 0,bool fastload = false)
     {
         currentLevelIndex = level;
         currentLevel = levels[currentLevelIndex];
@@ -169,13 +176,16 @@ public class LevelManager : MonoBehaviour
 
         SpawnTile(true);
 
-        StartCoroutine(LoadLevelAnim());
+        StartCoroutine(LoadLevelAnim(fastload));
     }
 
-    private IEnumerator LoadLevelAnim()
+    private IEnumerator LoadLevelAnim(bool fastload = false)
     {
-        yield return new WaitForSeconds(3);
-        levelIntroText.DisplayText(currentLevel.displayName, currentLevel.distance);
+        if (!fastload)
+        {
+            yield return new WaitForSeconds(3);
+            levelIntroText.DisplayText(currentLevel.displayName, currentLevel.distance);
+        }
 
         Color baseColor = RenderSettings.fogColor;
 
@@ -201,19 +211,25 @@ public class LevelManager : MonoBehaviour
         levelcontentRunning = true;
     }
 
-    private IEnumerator EndLevelAnim(bool loadNext = true)
+    private IEnumerator EndLevelAnim(bool loadNext = true, bool fastLoad = false)
     {
         StartCoroutine(UtilityCoroutines.FadeVolume(musicPlayer, 0, 2, true));
 
-        mainCamera.SetCombatView(false);
         levelCurve.curveTarget = Vector3.zero;
         curveChangeTimer = 100;
-        yield return new WaitForSeconds(2f);
+
+        if(fastLoad)
+            yield return new WaitForSeconds(0.01f);
+        else
+        {
+            mainCamera.SetCombatView(false);
+            yield return new WaitForSeconds(2f);
+        }
 
         if (loadNext)
         {
             if (currentLevelIndex <= levels.Length - 2)
-                LoadLevel(currentLevelIndex + 1);
+                LoadLevel(currentLevelIndex + 1, fastLoad);
             else
             {
                 victoryAnim.SetTrigger("Show");
