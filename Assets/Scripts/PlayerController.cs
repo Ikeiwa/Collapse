@@ -281,6 +281,7 @@ public class PlayerController : MonoBehaviour
     {
         anim.SetTrigger("Restart");
         power = 0;
+        InGameUIManager.instance.SetPower(0);
         RemovePowerup();
     }
 
